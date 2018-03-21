@@ -17,7 +17,7 @@ public class Main extends Application{
 	@Override
 	public void start(Stage primaryStage) throws Exception {
 		
-		primaryStage.setTitle("Title of the window");
+		primaryStage.setTitle("Jordan\'s Sound Control");
 		
 		button = new Button();
 		button.setText("Click me!");
