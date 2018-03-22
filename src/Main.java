@@ -1,6 +1,4 @@
 import javafx.application.Application;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.layout.StackPane;
@@ -22,12 +20,14 @@ public class Main extends Application{
 		button = new Button();
 		button.setText("Click me!");
 		
-		button.setOnAction(e -> System.out.println("Hello"));
+		button.setOnAction(e -> NodeWindow.display());
 		
 		StackPane layout = new StackPane();
 		layout.getChildren().add(button);
 		
-		Scene scene = new Scene(layout, 300, 250);
+		Scene scene = new Scene(layout, 400, 250);
+		primaryStage.setMinWidth(400);
+		primaryStage.setMinHeight(250);
 		primaryStage.setScene(scene);
 		
 		primaryStage.show();
