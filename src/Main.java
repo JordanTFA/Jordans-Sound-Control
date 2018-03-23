@@ -17,13 +17,15 @@ public class Main extends Application{
 		
 		primaryStage.setTitle("Jordan\'s Sound Control");
 		
-		button = new Button();
-		button.setText("Click me!");
+		Button add = new Button();
+		add.setText("Add Node");
+		add.setOnAction(e -> NodeWindow.display());
 		
-		button.setOnAction(e -> NodeWindow.display());
+		Button delete = new Button();
+		delete.setText("Delete Node");
 		
 		StackPane layout = new StackPane();
-		layout.getChildren().add(button);
+		layout.getChildren().addAll(add, delete);
 		
 		Scene scene = new Scene(layout, 400, 250);
 		primaryStage.setMinWidth(400);
