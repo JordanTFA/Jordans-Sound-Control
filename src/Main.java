@@ -1,7 +1,7 @@
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.layout.StackPane;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 public class Main extends Application{
@@ -12,6 +12,7 @@ public class Main extends Application{
 		launch(args);
 	}
 
+	@SuppressWarnings("unused")
 	@Override
 	public void start(Stage primaryStage) throws Exception {
 		
@@ -24,7 +25,20 @@ public class Main extends Application{
 		Button delete = new Button();
 		delete.setText("Delete Node");
 		
-		StackPane layout = new StackPane();
+		delete.setOnAction(e->{
+			if(1<3){
+				// Node is selected -> Remove node
+				
+			} else{
+				
+				// TODO: Make this graphical
+				System.out.println("Select a node!");
+				
+			}
+				
+		});
+		
+		VBox layout = new VBox();
 		layout.getChildren().addAll(add, delete);
 		
 		Scene scene = new Scene(layout, 400, 250);
