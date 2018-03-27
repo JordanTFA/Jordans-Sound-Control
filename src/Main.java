@@ -28,6 +28,7 @@ public class Main extends Application{
 		delete.setOnAction(e->{
 			if(1<3){
 				// Node is selected -> Remove node
+				System.out.println("Deleted <node>");
 				
 			} else{
 				
