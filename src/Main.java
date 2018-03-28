@@ -2,6 +2,9 @@ import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Circle;
+import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 
 public class Main extends Application{
@@ -17,6 +20,16 @@ public class Main extends Application{
 	public void start(Stage primaryStage) throws Exception {
 		
 		primaryStage.setTitle("Jordan\'s Sound Control");
+		
+		Rectangle group = new Rectangle();
+		group.setWidth(150);
+		group.setHeight(150);
+		group.setFill(Color.RED);
+		
+		Circle soundArea = new Circle();
+		soundArea.maxWidth(150);
+		soundArea.maxHeight(150);
+		soundArea.setFill(Color.BLUE);
 		
 		Button add = new Button();
 		add.setText("Add Node");
@@ -40,7 +53,7 @@ public class Main extends Application{
 		});
 		
 		VBox layout = new VBox();
-		layout.getChildren().addAll(add, delete);
+		layout.getChildren().addAll(group, soundArea, add, delete);
 		
 		Scene scene = new Scene(layout, 400, 250);
 		primaryStage.setMinWidth(400);

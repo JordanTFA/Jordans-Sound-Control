@@ -29,6 +29,8 @@ public class NodeWindow {
 			}
 		}
 		
+
+		
 		TextField chooseName = new TextField();
 		
 		Button ok = new Button("Okay");
