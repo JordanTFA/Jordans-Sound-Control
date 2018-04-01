@@ -22,6 +22,8 @@ public class Main extends Application{
 		primaryStage.setTitle("Jordan\'s Sound Control");
 		
 		Rectangle group = new Rectangle();
+		group.setX(10);
+		group.setY(10);
 		group.setWidth(150);
 		group.setHeight(150);
 		group.setFill(Color.RED);
@@ -61,6 +63,10 @@ public class Main extends Application{
 		primaryStage.setScene(scene);
 		
 		primaryStage.show();
+		
+	}
+	
+	public static void broadcastToUser(){
 		
 	}
 
