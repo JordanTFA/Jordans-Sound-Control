@@ -11,5 +11,12 @@ public class Node {
 		this.colour = colour;
 		this.volume = volume;
 	}
+	
+	public Double getVolume() {
+		return volume;
+	}
 
+	public void setVolume(Double volume) {
+		this.volume = volume;
+	}
 }
