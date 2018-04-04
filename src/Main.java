@@ -26,7 +26,7 @@ public class Main extends Application{
 		group.setY(10);
 		group.setWidth(150);
 		group.setHeight(150);
-		group.setFill(Color.RED);
+		group.setFill(Color.ALICEBLUE);
 		
 		Circle soundArea = new Circle();
 		soundArea.maxWidth(150);
