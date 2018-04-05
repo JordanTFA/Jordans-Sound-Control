@@ -9,6 +9,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
+import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -61,6 +62,14 @@ public class NodeWindow {
 		Button ok = new Button("Okay");
 		ok.setOnAction(e -> {
 			// Get name & Colour then create node
+			
+			Node n = new Node(chooseName.getText(), Color.RED, 0.0);
+			Circle crc = new Circle();
+			crc.setFill(n.colour);
+			crc.setRadius(5);
+			
+			layout.getChildren().add(crc);
+			
 			System.out.println(chooseName.getText() + " added.");
 			window.close();
 		});

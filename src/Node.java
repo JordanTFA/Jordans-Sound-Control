@@ -3,12 +3,12 @@ import java.awt.Color;
 public class Node {
 	
 	public String name;
-	public Color colour;
+	public javafx.scene.paint.Color colour;
 	public Double volume;
 
-	public Node(String name, Color colour, Double volume) {
+	public Node(String name, javafx.scene.paint.Color red, Double volume) {
 		this.name = name;
-		this.colour = colour;
+		this.colour = red;
 		this.volume = volume;
 	}
 	
