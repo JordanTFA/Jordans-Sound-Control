@@ -1,3 +1,5 @@
+import java.awt.Font;
+
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -5,12 +7,10 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ColorPicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
-import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
-import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextBoundsType;
 import javafx.stage.Modality;
@@ -43,11 +43,17 @@ public class NodeWindow {
 		colourPicker.setOnAction( e -> preview.setFill(colourPicker.getValue()) );
 		
 		chooseName.setOnAction(e-> {
+			
+			// TODO: Make this an actionlistener
 			StackPane stack = new StackPane();
 			
-			Text text = new Text(chooseName.getText(0,0));
+			Text text = new Text(chooseName.getText().substring(0, 3));
+			
+			text.setStyle("-fx-font:56 arial;");
 			text.setBoundsType(TextBoundsType.VISUAL);
 			stack.getChildren().addAll(preview, text);
+			
+			vbox.getChildren().add(0, stack);
 
 		});
 		
