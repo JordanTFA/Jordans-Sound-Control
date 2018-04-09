@@ -1,5 +1,3 @@
-import java.awt.Font;
-
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -32,6 +30,7 @@ public class NodeWindow {
 		final ColorPicker colourPicker = new ColorPicker(Color.GREEN);
 		final Button ok = new Button("Okay");
 		final TextField chooseName = new TextField();
+		final Label lbl = new Label();
 		
 		preview.setFill(colourPicker.getValue());
 		preview.setRadius(75);
@@ -42,16 +41,20 @@ public class NodeWindow {
 		
 		colourPicker.setOnAction( e -> preview.setFill(colourPicker.getValue()) );
 		
-		chooseName.setOnAction(e-> {
-			
-			// TODO: Make this an actionlistener
+		chooseName.textProperty().addListener((observable) -> {
 			StackPane stack = new StackPane();
 			
-			Text text = new Text(chooseName.getText().substring(0, 3));
+			lbl.setText("");
 			
-			text.setStyle("-fx-font:56 arial;");
-			text.setBoundsType(TextBoundsType.VISUAL);
-			stack.getChildren().addAll(preview, text);
+			String content = chooseName.getText();
+			if(content.length() < 3){
+				lbl.setText(content.substring(0,content.length()));
+			}else{
+				lbl.setText(content.substring(0,3));
+			}
+
+			lbl.setStyle("-fx-font:56 arial;");
+			stack.getChildren().addAll(preview, lbl);
 			
 			vbox.getChildren().add(0, stack);
 
