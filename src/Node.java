@@ -6,7 +6,7 @@ public class Node {
 	public javafx.scene.paint.Color colour;
 	public Double volume;
 
-	public Node(String name, javafx.scene.paint.Color red, Double volume) {
+	public Node(String name, javafx.scene.paint.Color red, Double volume, Double x, Double y) {
 		this.name = name;
 		this.colour = red;
 		this.volume = volume;

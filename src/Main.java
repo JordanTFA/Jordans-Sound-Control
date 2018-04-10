@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -10,6 +12,7 @@ import javafx.stage.Stage;
 public class Main extends Application{
 	
 	Button button;
+	static ArrayList<Node> nodes; // Maybe unnecessary
 
 	public static void main(String[] args) {
 		launch(args);
@@ -18,6 +21,8 @@ public class Main extends Application{
 	@SuppressWarnings("unused")
 	@Override
 	public void start(Stage primaryStage) throws Exception {
+		
+		nodes = new ArrayList<Node>();
 		
 		primaryStage.setTitle("Jordan\'s Sound Control");
 		
@@ -66,8 +71,16 @@ public class Main extends Application{
 		
 	}
 	
+	public static void addNode(Node node){
+		nodes.add(node);
+		
+		Circle crc = new Circle();
+		crc.setFill(node.colour);
+		System.out.println(node.name + " added with colour: " + node.colour);
+	}
+	
 	public static void broadcastToUser(){
 		
 	}
-
+	
 }

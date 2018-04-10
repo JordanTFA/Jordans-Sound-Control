@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -9,12 +11,12 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
-import javafx.scene.text.Text;
-import javafx.scene.text.TextBoundsType;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 public class NodeWindow {
+	
+	static ArrayList<Node> nodes;
 
 	public static void display(){
 			
@@ -31,6 +33,8 @@ public class NodeWindow {
 		final Button ok = new Button("Okay");
 		final TextField chooseName = new TextField();
 		final Label lbl = new Label();
+		
+		nodes = new ArrayList<Node>();
 		
 		preview.setFill(colourPicker.getValue());
 		preview.setRadius(75);
@@ -63,14 +67,9 @@ public class NodeWindow {
 		ok.setOnAction(e -> {
 			// Get name & Colour then create node
 			
-			Node node = new Node(chooseName.getText(), colourPicker.getValue(), 0.0);
-			Circle crc = new Circle();
-			crc.setFill(node.colour);
-			crc.setRadius(5);
+			Node node = new Node(lbl.getText(), colourPicker.getValue(), 0.0, 0.0, 0.0);	
+			Main.addNode(node);
 			
-			vbox.getChildren().add(crc);
-			
-			System.out.println(chooseName.getText() + " added with colour: " + colourPicker.getValue());
 			window.close();
 		});
 		
