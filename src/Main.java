@@ -11,6 +11,11 @@ import javafx.stage.Stage;
 
 public class Main extends Application{
 	
+	public static Stage primaryStage;
+	public static Scene scene;
+	public static Rectangle group;
+	public static VBox layout;
+	
 	Button button;
 	static ArrayList<Node> nodes; // Maybe unnecessary
 
@@ -20,13 +25,14 @@ public class Main extends Application{
 
 	@SuppressWarnings("unused")
 	@Override
-	public void start(Stage primaryStage) throws Exception {
+	public void start(Stage s) throws Exception {
 		
+		primaryStage = s;
 		nodes = new ArrayList<Node>();
 		
 		primaryStage.setTitle("Jordan\'s Sound Control");
 		
-		Rectangle group = new Rectangle();
+		group = new Rectangle();
 		group.setX(10);
 		group.setY(10);
 		group.setWidth(150);
@@ -59,10 +65,10 @@ public class Main extends Application{
 				
 		});
 		
-		VBox layout = new VBox();
+		layout = new VBox();
 		layout.getChildren().addAll(group, soundArea, add, delete);
 		
-		Scene scene = new Scene(layout, 400, 250);
+		scene = new Scene(layout, 400, 250);
 		primaryStage.setMinWidth(400);
 		primaryStage.setMinHeight(250);
 		primaryStage.setScene(scene);
@@ -76,6 +82,11 @@ public class Main extends Application{
 		
 		Circle crc = new Circle();
 		crc.setFill(node.colour);
+		crc.setRadius(15);
+		crc.setCenterX(node.x);
+		crc.setCenterY(node.y);
+		
+		layout.getChildren().add(crc);
 		System.out.println(node.name + " added with colour: " + node.colour);
 	}
 	

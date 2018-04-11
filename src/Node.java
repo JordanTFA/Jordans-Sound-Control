@@ -5,11 +5,14 @@ public class Node {
 	public String name;
 	public javafx.scene.paint.Color colour;
 	public Double volume;
+	public Double x, y;
 
 	public Node(String name, javafx.scene.paint.Color red, Double volume, Double x, Double y) {
 		this.name = name;
 		this.colour = red;
 		this.volume = volume;
+		this.x = x;
+		this.y = y;
 	}
 	
 	public Double getVolume() {
