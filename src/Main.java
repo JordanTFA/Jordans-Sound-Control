@@ -4,6 +4,7 @@ import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
@@ -16,7 +17,8 @@ public class Main extends Application{
 	public static Stage primaryStage;
 	public static Scene scene;
 	public static Rectangle group;
-	public static VBox layout;
+	public static VBox controls;
+	public static HBox circles;
 	
 	Button button;
 	static ArrayList<Node> nodes; // Maybe unnecessary
@@ -37,9 +39,9 @@ public class Main extends Application{
 		group = new Rectangle();
 		group.setX(10);
 		group.setY(10);
-		group.setWidth(150);
-		group.setHeight(150);
-		group.setFill(Color.ALICEBLUE);
+		group.setWidth(250);
+		group.setHeight(250);
+		group.setFill(Color.VIOLET);
 		
 		Circle soundArea = new Circle();
 		soundArea.maxWidth(150);
@@ -67,8 +69,14 @@ public class Main extends Application{
 				
 		});
 		
-		layout = new VBox();
-		layout.getChildren().addAll(group, soundArea, add, delete);
+		circles = new HBox(5);
+		circles.getChildren().add(group);
+		
+		controls = new VBox(10);
+		controls.getChildren().addAll(add, delete);
+		
+		HBox layout = new HBox(10);
+		layout.getChildren().addAll(circles, controls);
 		
 		scene = new Scene(layout, 400, 250);
 		primaryStage.setMinWidth(400);
@@ -90,11 +98,12 @@ public class Main extends Application{
 		crc.setCenterX(node.x);
 		crc.setCenterY(node.y);
 		
-		Label lbl = new Label(node.name.substring(0));
+		Label lbl = new Label(node.name);
 		lbl.setStyle("-fx-font:14 arial;");
 		
 		stack.getChildren().addAll(crc, lbl);
-		layout.getChildren().add(0, stack);
+		circles.getChildren().add(0, stack);
+		
 		System.out.println(node.name + " added with colour: " + node.colour);
 	}
 	

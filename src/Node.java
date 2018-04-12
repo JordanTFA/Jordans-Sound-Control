@@ -1,5 +1,3 @@
-
-
 public class Node {
 	
 	public String name;
@@ -7,9 +5,9 @@ public class Node {
 	public Double volume;
 	public Double x, y;
 
-	public Node(String name, javafx.scene.paint.Color red, Double volume, Double x, Double y) {
+	public Node(String name, javafx.scene.paint.Color colour, Double volume, Double x, Double y) {
 		this.name = name;
-		this.colour = red;
+		this.colour = colour;
 		this.volume = volume;
 		this.x = x;
 		this.y = y;
