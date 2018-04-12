@@ -3,6 +3,8 @@ import java.util.ArrayList;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
@@ -80,13 +82,19 @@ public class Main extends Application{
 	public static void addNode(Node node){
 		nodes.add(node);
 		
+		StackPane stack = new StackPane();
+		
 		Circle crc = new Circle();
 		crc.setFill(node.colour);
 		crc.setRadius(15);
 		crc.setCenterX(node.x);
 		crc.setCenterY(node.y);
 		
-		layout.getChildren().add(crc);
+		Label lbl = new Label(node.name.substring(0));
+		lbl.setStyle("-fx-font:14 arial;");
+		
+		stack.getChildren().addAll(crc, lbl);
+		layout.getChildren().add(0, stack);
 		System.out.println(node.name + " added with colour: " + node.colour);
 	}
 	
