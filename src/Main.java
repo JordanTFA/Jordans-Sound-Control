@@ -44,8 +44,9 @@ public class Main extends Application{
 		group.setFill(Color.VIOLET);
 		
 		Circle soundArea = new Circle();
-		soundArea.maxWidth(150);
-		soundArea.maxHeight(150);
+		//soundArea.maxWidth(150);
+		//soundArea.maxHeight(150);
+		soundArea.setRadius(125);
 		soundArea.setFill(Color.BLUE);
 		
 		Button add = new Button();
@@ -69,8 +70,11 @@ public class Main extends Application{
 				
 		});
 		
+		StackPane stack = new StackPane();
+		stack.getChildren().addAll(group, soundArea);
+		
 		circles = new HBox(5);
-		circles.getChildren().add(group);
+		circles.getChildren().addAll(stack);
 		
 		controls = new VBox(10);
 		controls.getChildren().addAll(add, delete);
