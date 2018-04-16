@@ -1,9 +1,12 @@
 import java.util.ArrayList;
 
 import javafx.application.Application;
+import javafx.event.EventHandler;
+import javafx.scene.Cursor;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
@@ -16,9 +19,16 @@ public class Main extends Application{
 	
 	public static Stage primaryStage;
 	public static Scene scene;
-	public static Rectangle group;
+	
+	public static Rectangle muteArea;
+	public static Circle soundArea;
+	
 	public static VBox controls;
 	public static HBox circles;
+	
+    static double orgSceneX;
+	static double orgSceneY;
+    static double orgTranslateX, orgTranslateY;
 	
 	Button button;
 	static ArrayList<Node> nodes; // Maybe unnecessary
@@ -36,16 +46,14 @@ public class Main extends Application{
 		
 		primaryStage.setTitle("Jordan\'s Sound Control");
 		
-		group = new Rectangle();
-		group.setX(10);
-		group.setY(10);
-		group.setWidth(250);
-		group.setHeight(250);
-		group.setFill(Color.VIOLET);
+		muteArea = new Rectangle();
+		muteArea.setX(10);
+		muteArea.setY(10);
+		muteArea.setWidth(250);
+		muteArea.setHeight(250);
+		muteArea.setFill(Color.VIOLET);
 		
-		Circle soundArea = new Circle();
-		//soundArea.maxWidth(150);
-		//soundArea.maxHeight(150);
+		soundArea = new Circle();
 		soundArea.setRadius(125);
 		soundArea.setFill(Color.BLUE);
 		
@@ -71,10 +79,10 @@ public class Main extends Application{
 		});
 		
 		StackPane stack = new StackPane();
-		stack.getChildren().addAll(group, soundArea);
+		stack.getChildren().addAll(muteArea, soundArea);
 		
 		circles = new HBox(5);
-		circles.getChildren().addAll(stack);
+		circles.getChildren().add(stack);
 		
 		controls = new VBox(10);
 		controls.getChildren().addAll(add, delete);
@@ -101,15 +109,47 @@ public class Main extends Application{
 		crc.setRadius(15);
 		crc.setCenterX(node.x);
 		crc.setCenterY(node.y);
-		
+
 		Label lbl = new Label(node.name);
 		lbl.setStyle("-fx-font:14 arial;");
 		
 		stack.getChildren().addAll(crc, lbl);
-		circles.getChildren().add(0, stack);
+		crc.setCursor(Cursor.MOVE);
+		stack.setOnMousePressed(circleOnMousePressedEventHandler);
+        stack.setOnMouseDragged(circleOnMouseDraggedEventHandler);
+
+		circles.getChildren().add(stack);
+		stack.toFront();
 		
 		System.out.println(node.name + " added with colour: " + node.colour);
 	}
+	
+	static EventHandler<MouseEvent> circleOnMousePressedEventHandler = 
+	        new EventHandler<MouseEvent>() {
+	 
+	        @Override
+	        public void handle(MouseEvent t) {
+	            orgSceneX = t.getSceneX();
+	            orgSceneY = t.getSceneY();
+	            orgTranslateX = ((StackPane)(t.getSource())).getTranslateX();
+	            orgTranslateY = ((StackPane)(t.getSource())).getTranslateY();
+	        }
+	    };
+	     
+	    static EventHandler<MouseEvent> circleOnMouseDraggedEventHandler = 
+	        new EventHandler<MouseEvent>() {
+	 
+	        @Override
+	        public void handle(MouseEvent t) {
+	            double offsetX = t.getSceneX() - orgSceneX;
+	            double offsetY = t.getSceneY() - orgSceneY;
+	            double newTranslateX = orgTranslateX + offsetX;
+	            double newTranslateY = orgTranslateY + offsetY;
+	             
+	            ((StackPane)(t.getSource())).setTranslateX(newTranslateX);
+	            ((StackPane)(t.getSource())).setTranslateY(newTranslateY);
+	        }
+	    };
 	
 	public static void broadcastToUser(){
 		

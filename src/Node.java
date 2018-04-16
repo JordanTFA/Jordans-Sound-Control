@@ -2,7 +2,7 @@ public class Node {
 	
 	public String name;
 	public javafx.scene.paint.Color colour;
-	public Double volume;
+	private Double volume;
 	public Double x, y;
 
 	public Node(String name, javafx.scene.paint.Color colour, Double volume, Double x, Double y) {
@@ -21,3 +21,4 @@ public class Node {
 		this.volume = volume;
 	}
 }
+
