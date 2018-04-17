@@ -78,8 +78,21 @@ public class Main extends Application{
 				
 		});
 		
+		Node me = new Node("me", Color.RED, 0.0, 0.0 ,0.0);
+		Circle crc = new Circle();
+		crc.setFill(me.colour);
+		crc.setRadius(15);
+		crc.setCenterX(me.x);
+		crc.setCenterY(me.y);
+		
+		Label lblme = new Label(me.name);
+		lblme.setStyle("-fx-font:14 arial;");
+		StackPane Me = new StackPane();
+		
+		Me.getChildren().addAll(crc, lblme);
+		
 		StackPane stack = new StackPane();
-		stack.getChildren().addAll(muteArea, soundArea);
+		stack.getChildren().addAll(muteArea, soundArea, Me);
 		
 		circles = new HBox(5);
 		circles.getChildren().add(stack);
