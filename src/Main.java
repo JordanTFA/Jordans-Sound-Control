@@ -12,6 +12,7 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
+import javafx.scene.shape.Line;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 
@@ -29,6 +30,8 @@ public class Main extends Application{
     static double orgSceneX;
 	static double orgSceneY;
     static double orgTranslateX, orgTranslateY;
+    
+    static Node me;
 	
 	Button button;
 	static ArrayList<Node> nodes; // Maybe unnecessary
@@ -78,21 +81,9 @@ public class Main extends Application{
 				
 		});
 		
-		Node me = new Node("me", Color.RED, 0.0, 0.0 ,0.0);
-		Circle crc = new Circle();
-		crc.setFill(me.colour);
-		crc.setRadius(15);
-		crc.setCenterX(me.x);
-		crc.setCenterY(me.y);
-		
-		Label lblme = new Label(me.name);
-		lblme.setStyle("-fx-font:14 arial;");
-		StackPane Me = new StackPane();
-		
-		Me.getChildren().addAll(crc, lblme);
-		
+		StackPane me = addMeNode();
 		StackPane stack = new StackPane();
-		stack.getChildren().addAll(muteArea, soundArea, Me);
+		stack.getChildren().addAll(muteArea, soundArea, me);
 		
 		circles = new HBox(5);
 		circles.getChildren().add(stack);
@@ -137,6 +128,25 @@ public class Main extends Application{
 		System.out.println(node.name + " added with colour: " + node.colour);
 	}
 	
+	public static StackPane addMeNode(){
+		
+		me = new Node("me", Color.RED, 0.0, 0.0 ,0.0);
+		Circle crc = new Circle();
+		crc.setFill(me.colour);
+		crc.setRadius(15);
+		crc.setCenterX(me.x);
+		crc.setCenterY(me.y);
+		
+		Label lblme = new Label(me.name);
+		lblme.setStyle("-fx-font:14 arial;");
+		StackPane Me = new StackPane();
+		
+		Me.getChildren().addAll(crc, lblme);
+		
+		return Me;
+		
+	}
+	
 	static EventHandler<MouseEvent> circleOnMousePressedEventHandler = 
 	        new EventHandler<MouseEvent>() {
 	 
@@ -161,6 +171,15 @@ public class Main extends Application{
 	             
 	            ((StackPane)(t.getSource())).setTranslateX(newTranslateX);
 	            ((StackPane)(t.getSource())).setTranslateY(newTranslateY);
+	            
+	            System.out.println(t.getX() + " " + t.getY());
+	            
+	            Line line = new Line();
+	            line.setEndX(t.getX());
+	            line.setEndY(t.getY());
+	            
+	            line.setStartX(me.getX());
+	            line.setStartY(me.getY());
 	        }
 	    };
 	
