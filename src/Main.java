@@ -32,6 +32,8 @@ public class Main extends Application{
     static double orgTranslateX, orgTranslateY;
     
     static Node me;
+    
+    static Line line;
 	
 	Button button;
 	static ArrayList<Node> nodes; // Maybe unnecessary
@@ -46,6 +48,8 @@ public class Main extends Application{
 		
 		primaryStage = s;
 		nodes = new ArrayList<Node>();
+		
+		line = new Line();
 		
 		primaryStage.setTitle("Jordan\'s Sound Control");
 		
@@ -83,7 +87,7 @@ public class Main extends Application{
 		
 		StackPane me = addMeNode();
 		StackPane stack = new StackPane();
-		stack.getChildren().addAll(muteArea, soundArea, me);
+		stack.getChildren().addAll(muteArea, soundArea, line, me);
 		
 		circles = new HBox(5);
 		circles.getChildren().add(stack);
@@ -172,14 +176,16 @@ public class Main extends Application{
 	            ((StackPane)(t.getSource())).setTranslateX(newTranslateX);
 	            ((StackPane)(t.getSource())).setTranslateY(newTranslateY);
 	            
-	            System.out.println(t.getX() + " " + t.getY());
+	            System.out.println(t.getSceneX() + " " + t.getSceneY());
 	            
-	            Line line = new Line();
-	            line.setEndX(t.getX());
-	            line.setEndY(t.getY());
+	            //Line line = new Line();
+	            line.setEndX(t.getSceneX());
+	            line.setEndY(t.getSceneY());
 	            
-	            line.setStartX(me.getX());
-	            line.setStartY(me.getY());
+	            line.setStartX(123);
+	            line.setStartY(125);
+	            
+	            //circles.getChildren().add(0, line);
 	        }
 	    };
 	
