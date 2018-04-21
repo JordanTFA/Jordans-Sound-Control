@@ -176,16 +176,18 @@ public class Main extends Application{
 	            ((StackPane)(t.getSource())).setTranslateX(newTranslateX);
 	            ((StackPane)(t.getSource())).setTranslateY(newTranslateY);
 	            
-	            System.out.println(t.getSceneX() + " " + t.getSceneY());
-	            
-	            //Line line = new Line();
+	            //System.out.println(t.getSceneX() + " " + t.getSceneY());
+
 	            line.setEndX(t.getSceneX());
 	            line.setEndY(t.getSceneY());
 	            
-	            line.setStartX(123);
+	            line.setStartX(123); // Mid point
 	            line.setStartY(125);
 	            
-	            //circles.getChildren().add(0, line);
+	            double length = Math.sqrt(Math.pow( line.getStartX() - line.getEndX() , 2) + 
+	            		( Math.pow(line.getStartY() - line.getEndY(), 2)));
+	            
+	            System.out.println(length);
 	        }
 	    };
 	
