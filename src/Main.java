@@ -31,8 +31,6 @@ public class Main extends Application{
 	static double orgSceneY;
     static double orgTranslateX, orgTranslateY;
     
-    static Node me;
-    
     static Line line;
 	
 	Button button;
@@ -134,7 +132,7 @@ public class Main extends Application{
 	
 	public static StackPane addMeNode(){
 		
-		me = new Node("me", Color.RED, 0.0, 0.0 ,0.0);
+		Node me = new Node("me", Color.RED, 0.0, 0.0 ,0.0);
 		Circle crc = new Circle();
 		crc.setFill(me.colour);
 		crc.setRadius(15);
@@ -188,6 +186,12 @@ public class Main extends Application{
 	            		( Math.pow(line.getStartY() - line.getEndY(), 2)));
 	            
 	            System.out.println(length);
+	            
+	            if(length > 125){
+	            	// Set volume of node to 0
+	            }else{
+	            	// Normalise and set volume of node
+	            }
 	        }
 	    };
 	
