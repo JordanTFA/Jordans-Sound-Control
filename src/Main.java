@@ -185,12 +185,13 @@ public class Main extends Application{
 	            double length = Math.sqrt(Math.pow( line.getStartX() - line.getEndX() , 2) + 
 	            		( Math.pow(line.getStartY() - line.getEndY(), 2)));
 	            
-	            System.out.println(length);
 	            
 	            if(length > 125){
 	            	// Set volume of node to 0
+	            	System.out.println("Muted");
 	            }else{
 	            	// Normalise and set volume of node
+		            System.out.println(length);
 	            }
 	        }
 	    };
