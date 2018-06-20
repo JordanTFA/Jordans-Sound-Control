@@ -16,6 +16,8 @@ import javafx.scene.shape.Line;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 
+// TODO: Add new Vbox for nodes to go.
+
 public class Main extends Application{
 	
 	public static Stage primaryStage;
@@ -170,10 +172,27 @@ public class Main extends Application{
 	            double offsetY = t.getSceneY() - orgSceneY;
 	            double newTranslateX = orgTranslateX + offsetX;
 	            double newTranslateY = orgTranslateY + offsetY;
-	             
+
+	            /*if(newTranslateX < muteArea.getX()){
+	            	((StackPane)(t.getSource())).setTranslateX(muteArea.getX());
+	            }//else if(newTranslateX > muteArea.getWidth()){
+	            	//((StackPane)(t.getSource())).setTranslateX(muteArea.getX() + muteArea.getWidth());
+	            //}
+	            else{
+		            ((StackPane)(t.getSource())).setTranslateX(newTranslateX);
+	            }
+	            if(newTranslateY < muteArea.getY()){
+	            	
+	            	((StackPane)(t.getSource())).setTranslateY(muteArea.getY());
+	            }//else if(newTranslateY > muteArea.getY() + muteArea.getHeight()){
+	            	//((StackPane)(t.getSource())).setTranslateY(muteArea.getY() + muteArea.getHeight());
+	            //}
+	            else{
+		            ((StackPane)(t.getSource())).setTranslateY(newTranslateY);
+	            }*/
+
 	            ((StackPane)(t.getSource())).setTranslateX(newTranslateX);
 	            ((StackPane)(t.getSource())).setTranslateY(newTranslateY);
-	            
 	            //System.out.println(t.getSceneX() + " " + t.getSceneY());
 
 	            line.setEndX(t.getSceneX());
@@ -184,8 +203,7 @@ public class Main extends Application{
 	            
 	            double length = Math.sqrt(Math.pow( line.getStartX() - line.getEndX() , 2) + 
 	            		( Math.pow(line.getStartY() - line.getEndY(), 2)));
-	            
-	            
+	               
 	            if(length > 125){
 	            	// Set volume of node to 0
 	            	System.out.println("Muted");
