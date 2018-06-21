@@ -28,6 +28,7 @@ public class Main extends Application{
 	
 	public static VBox controls;
 	public static HBox circles;
+	public static VBox pen;
 	
     static double orgSceneX;
 	static double orgSceneY;
@@ -94,6 +95,10 @@ public class Main extends Application{
 		
 		controls = new VBox(10);
 		controls.getChildren().addAll(add, delete);
+		
+		pen = new VBox();
+		// TODO: This
+		
 		
 		HBox layout = new HBox(10);
 		layout.getChildren().addAll(circles, controls);
