@@ -99,6 +99,17 @@ public class Main extends Application{
 		pen = new VBox();
 		// TODO: This
 		
+		/* ******************************
+		 * *                 *          *
+		 * *                 * controls *
+		 * *                 *          *
+		 * *     circles     * **********
+		 * *                 *          *
+		 * *                 *    pen   *
+		 * *                 *          *
+		 * ******************************
+		 */
+		
 		
 		HBox layout = new HBox(10);
 		layout.getChildren().addAll(circles, controls);
