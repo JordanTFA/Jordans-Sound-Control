@@ -1,6 +1,8 @@
 import java.util.ArrayList;
+import java.util.Random;
 
 import javafx.application.Application;
+import javafx.beans.value.ChangeListener;
 import javafx.event.EventHandler;
 import javafx.scene.Cursor;
 import javafx.scene.Scene;
@@ -57,13 +59,13 @@ public class Main extends Application{
 		muteArea = new Rectangle();
 		muteArea.setX(10);
 		muteArea.setY(10);
-		muteArea.setWidth(250);
-		muteArea.setHeight(250);
-		muteArea.setFill(Color.VIOLET);
+		muteArea.setWidth(500);
+		muteArea.setHeight(500);
+		muteArea.setFill(Color.POWDERBLUE);
 		
 		soundArea = new Circle();
-		soundArea.setRadius(125);
-		soundArea.setFill(Color.BLUE);
+		soundArea.setRadius(250);
+		soundArea.setFill(Color.DODGERBLUE);
 		
 		Button add = new Button();
 		add.setText("Add Node");
@@ -114,12 +116,20 @@ public class Main extends Application{
 		HBox layout = new HBox(10);
 		layout.getChildren().addAll(circles, controls);
 		
-		scene = new Scene(layout, 400, 250);
-		primaryStage.setMinWidth(400);
-		primaryStage.setMinHeight(250);
+		scene = new Scene(layout, 800, 500);
+		primaryStage.setMinWidth(800);
+		primaryStage.setMinHeight(500);
 		primaryStage.setScene(scene);
 		
 		primaryStage.show();
+		
+		s.widthProperty().addListener((obs, oldVal, newVal) -> {
+		     // Do whatever you want
+		});
+
+		s.heightProperty().addListener((obs, oldVal, newVal) -> {
+		     // Do whatever you want
+		});
 		
 	}
 	
@@ -127,6 +137,7 @@ public class Main extends Application{
 		nodes.add(node);
 		
 		StackPane stack = new StackPane();
+		Random r = new Random();
 		
 		Circle crc = new Circle();
 		crc.setFill(node.colour);
@@ -166,6 +177,8 @@ public class Main extends Application{
 		return Me;
 		
 	}
+	
+	
 	
 	static EventHandler<MouseEvent> circleOnMousePressedEventHandler = 
 	        new EventHandler<MouseEvent>() {
@@ -220,7 +233,7 @@ public class Main extends Application{
 	            double length = Math.sqrt(Math.pow( line.getStartX() - line.getEndX() , 2) + 
 	            		( Math.pow(line.getStartY() - line.getEndY(), 2)));
 	               
-	            if(length > 125){
+	            if(length > soundArea.getRadius()){
 	            	// Set volume of node to 0
 	            	System.out.println("Muted");
 	            }else{
