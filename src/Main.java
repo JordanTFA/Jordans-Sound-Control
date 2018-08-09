@@ -124,11 +124,14 @@ public class Main extends Application{
 		primaryStage.show();
 		
 		s.widthProperty().addListener((obs, oldVal, newVal) -> {
-		     // Do whatever you want
+
+			muteArea.setWidth((double) oldVal - 0);
+
 		});
 
 		s.heightProperty().addListener((obs, oldVal, newVal) -> {
-		     // Do whatever you want
+
+			muteArea.setHeight((double) oldVal - 0 );
 		});
 		
 	}

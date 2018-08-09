@@ -39,7 +39,7 @@ public class NodeWindow {
 		preview.setFill(colourPicker.getValue());
 		preview.setRadius(75);
 		
-		VBox vbox = new VBox( preview, instr, chooseName, colourPicker, ok);
+		VBox vbox = new VBox(preview, instr, chooseName, colourPicker, ok);
 		vbox.setAlignment(Pos.CENTER);
 		vbox.setPadding(new Insets(10,10,10,10));
 		
