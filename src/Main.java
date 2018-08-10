@@ -117,21 +117,22 @@ public class Main extends Application{
 		layout.getChildren().addAll(circles, controls);
 		
 		scene = new Scene(layout, 800, 500);
-		primaryStage.setMinWidth(800);
-		primaryStage.setMinHeight(500);
 		primaryStage.setScene(scene);
 		
 		primaryStage.show();
 		
 		s.widthProperty().addListener((obs, oldVal, newVal) -> {
 
-			muteArea.setWidth((double) oldVal - 0);
+			muteArea.setWidth((double) oldVal - 200);
 
 		});
 
 		s.heightProperty().addListener((obs, oldVal, newVal) -> {
 
-			muteArea.setHeight((double) oldVal - 0 );
+			muteArea.setHeight((double) oldVal - 10 );
+			soundArea.setCenterX(((double) oldVal / 2.0));
+			soundArea.setCenterY(((double) oldVal / 2.0));
+			soundArea.setRadius(((double) oldVal / 2.0) - 40);
 		});
 		
 	}
