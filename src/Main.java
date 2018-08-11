@@ -123,7 +123,9 @@ public class Main extends Application{
 		
 		s.widthProperty().addListener((obs, oldVal, newVal) -> {
 
-			muteArea.setWidth((double) oldVal - 200);
+			muteArea.setWidth((double) oldVal - ((double)oldVal / 4));
+			soundArea.setCenterX(((double) oldVal / 2.0));
+			soundArea.setCenterY(((double) oldVal / 2.0));
 
 		});
 
