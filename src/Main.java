@@ -22,15 +22,15 @@ import javafx.stage.Stage;
 
 public class Main extends Application{
 	
-	public static Stage primaryStage;
-	public static Scene scene;
+	private static Stage primaryStage;
+	private static Scene scene;
 	
-	public static Rectangle muteArea;
-	public static Circle soundArea;
+	private static Rectangle muteArea;
+	private static Circle soundArea;
 	
-	public static VBox controls;
-	public static HBox circles;
-	public static VBox pen;
+	private static VBox controls;
+	private static HBox circles;
+	private static VBox pen;
 	
     static double orgSceneX;
 	static double orgSceneY;
@@ -123,7 +123,7 @@ public class Main extends Application{
 		
 		s.widthProperty().addListener((obs, oldVal, newVal) -> {
 
-			muteArea.setWidth((double) oldVal - ((double)oldVal / 4));
+			muteArea.setWidth((double) oldVal - ((double)oldVal / 6));
 			soundArea.setCenterX(((double) oldVal / 2.0));
 			soundArea.setCenterY(((double) oldVal / 2.0));
 

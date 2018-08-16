@@ -1,9 +1,9 @@
 public class Node {
 	
-	public String name;
-	public javafx.scene.paint.Color colour;
+	private String name;
+	private javafx.scene.paint.Color colour;
 	private Double volume;
-	public Double x, y;
+	private Double x, y;
 
 	public Node(String name, javafx.scene.paint.Color colour, Double volume, Double x, Double y) {
 		this.name = name;

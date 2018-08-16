@@ -16,7 +16,7 @@ import javafx.stage.Stage;
 
 public class NodeWindow {
 	
-	static ArrayList<Node> nodes;
+	private static ArrayList<Node> nodes;
 
 	public static void display(){
 			
