@@ -36,7 +36,9 @@ public class Main extends Application{
 	static double orgSceneY;
     static double orgTranslateX, orgTranslateY;
     
-    static Line line;
+    private Node me;
+ 
+	static Line line;
 	
 	Button button;
 	static ArrayList<Node> nodes; // Maybe unnecessary
@@ -88,9 +90,10 @@ public class Main extends Application{
 				
 		});
 		
-		StackPane me = addMeNode();
+		me = new Node("Me", Color.RED, 0.0, soundArea.getCenterX(), soundArea.getCenterY());
+		StackPane Me = addMeNode(me);
 		StackPane stack = new StackPane();
-		stack.getChildren().addAll(muteArea, soundArea, line, me);
+		stack.getChildren().addAll(muteArea, soundArea, line, Me);
 		
 		circles = new HBox(5);
 		circles.getChildren().add(stack);
@@ -165,9 +168,8 @@ public class Main extends Application{
 		System.out.println(node.name + " added with colour: " + node.colour);
 	}
 	
-	public static StackPane addMeNode(){
+	public static StackPane addMeNode(Node me){
 		
-		Node me = new Node("me", Color.RED, 0.0, 0.0 ,0.0);
 		Circle crc = new Circle();
 		crc.setFill(me.colour);
 		crc.setRadius(15);
@@ -251,6 +253,14 @@ public class Main extends Application{
 	
 	public static void broadcastToUser(){
 		
+	}
+	
+    public Node getMe() {
+		return me;
+	}
+
+	public void setMe(Node me) {
+		this.me = me;
 	}
 	
 }
