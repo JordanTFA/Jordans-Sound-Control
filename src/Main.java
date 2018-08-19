@@ -142,6 +142,10 @@ public class Main extends Application{
 		
 	}
 	
+	public static void drawLine(){
+		
+	}
+	
 	public static void addNode(Node node){
 		nodes.add(node);
 		
@@ -185,8 +189,6 @@ public class Main extends Application{
 		return Me;
 		
 	}
-	
-	
 	
 	static EventHandler<MouseEvent> circleOnMousePressedEventHandler = 
 	        new EventHandler<MouseEvent>() {
