@@ -150,7 +150,13 @@ public class Main extends Application{
 		nodes.add(node);
 		
 		StackPane stack = new StackPane();
-		Random r = new Random();
+		Random rand = new Random();
+		
+		//double randWidth = rand.nextDouble(muteArea.getWidth());
+		//Set x coord of node to a random spot
+		
+		//double randHeight = rand.nextDouble(muteArea.getHeight());
+		//Set y coord of node to a random spot
 		
 		Circle crc = new Circle();
 		crc.setFill(node.colour);
