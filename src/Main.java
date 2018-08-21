@@ -152,17 +152,17 @@ public class Main extends Application{
 		StackPane stack = new StackPane();
 		Random rand = new Random();
 		
-		//double randWidth = rand.nextDouble(muteArea.getWidth());
-		//Set x coord of node to a random spot
+		int randWidth = rand.nextInt((int)muteArea.getWidth());
+		// Set x coord of node to a random spot
 		
-		//double randHeight = rand.nextDouble(muteArea.getHeight());
-		//Set y coord of node to a random spot
+		int randHeight = rand.nextInt((int)muteArea.getHeight());
+		// Set y coord of node to a random spot
 		
 		Circle crc = new Circle();
 		crc.setFill(node.colour);
 		crc.setRadius(15);
-		crc.setCenterX(node.x);
-		crc.setCenterY(node.y);
+		crc.setCenterX(randWidth);
+		crc.setCenterY(randHeight);
 
 		Label lbl = new Label(node.name);
 		lbl.setStyle("-fx-font:14 arial;");
@@ -243,8 +243,8 @@ public class Main extends Application{
 	            line.setEndX(t.getSceneX());
 	            line.setEndY(t.getSceneY());
 	            
-	            line.setStartX(123); // Mid point
-	            line.setStartY(125);
+	            line.setStartX(muteArea.getWidth() / 2); // Mid point
+	            line.setStartY(muteArea.getHeight() / 2);
 	            
 	            double length = Math.sqrt(Math.pow( line.getStartX() - line.getEndX() , 2) + 
 	            		( Math.pow(line.getStartY() - line.getEndY(), 2)));
