@@ -5,6 +5,6 @@
 This application allows you manage sound volume from multiple of sources simply by moving nodes in a given area.
 
 
-#TODO:
+# TODO:
 
 - Remove line duplication

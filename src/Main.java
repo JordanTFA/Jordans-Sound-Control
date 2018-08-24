@@ -218,34 +218,27 @@ public class Main extends Application{
 	            double newTranslateX = orgTranslateX + offsetX;
 	            double newTranslateY = orgTranslateY + offsetY;
 
-	            /*if(newTranslateX < muteArea.getX()){
-	            	((StackPane)(t.getSource())).setTranslateX(muteArea.getX());
-	            }//else if(newTranslateX > muteArea.getWidth()){
-	            	//((StackPane)(t.getSource())).setTranslateX(muteArea.getX() + muteArea.getWidth());
-	            //}
-	            else{
-		            ((StackPane)(t.getSource())).setTranslateX(newTranslateX);
-	            }
-	            if(newTranslateY < muteArea.getY()){
-	            	
-	            	((StackPane)(t.getSource())).setTranslateY(muteArea.getY());
-	            }//else if(newTranslateY > muteArea.getY() + muteArea.getHeight()){
-	            	//((StackPane)(t.getSource())).setTranslateY(muteArea.getY() + muteArea.getHeight());
-	            //}
-	            else{
-		            ((StackPane)(t.getSource())).setTranslateY(newTranslateY);
-	            }*/
-
 	            ((StackPane)(t.getSource())).setTranslateX(newTranslateX);
 	            ((StackPane)(t.getSource())).setTranslateY(newTranslateY);
 	            //System.out.println(t.getSceneX() + " " + t.getSceneY());
 
-	            line.setEndX(t.getSceneX());
-	            line.setEndY(t.getSceneY());
+	            double startX = muteArea.getWidth() / 2;
+	            double startY = muteArea.getHeight() / 2;
 	            
-	            line.setStartX(muteArea.getWidth() / 2); // Mid point
+	            double endX = t.getSceneX();
+	            double endY = t.getSceneY();
+	            
+	            line = new Line(startX, startY, endX, endY);
+	            /*line.setStartX(muteArea.getWidth() / 2); // Mid point
 	            line.setStartY(muteArea.getHeight() / 2);
 	            
+	            line.setEndX(t.getSceneX());
+	            line.setEndY(t.getSceneY());*/
+	            
+	            circles.getChildren().addAll(line);
+	            
+	            System.out.println(line.getStartX() + ", " + line.getEndX());
+	                       
 	            double length = Math.sqrt(Math.pow( line.getStartX() - line.getEndX() , 2) + 
 	            		( Math.pow(line.getStartY() - line.getEndY(), 2)));
 	               
@@ -254,7 +247,7 @@ public class Main extends Application{
 	            	System.out.println("Muted");
 	            }else{
 	            	// Normalise and set volume of node
-		            System.out.println(length);
+		            //System.out.println(length);
 	            }
 	        }
 	    };
