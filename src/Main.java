@@ -228,16 +228,14 @@ public class Main extends Application{
 	            double endX = t.getSceneX();
 	            double endY = t.getSceneY();
 	            
-	            line = new Line(startX, startY, endX, endY);
-	            /*line.setStartX(muteArea.getWidth() / 2); // Mid point
+	            //line = new Line(startX, startY, endX, endY);
+	            //circles.getChildren().addAll(line);
+	               
+	            line.setStartX(muteArea.getWidth() / 2); // Mid point
 	            line.setStartY(muteArea.getHeight() / 2);
 	            
 	            line.setEndX(t.getSceneX());
-	            line.setEndY(t.getSceneY());*/
-	            
-	            circles.getChildren().addAll(line);
-	            
-	            System.out.println(line.getStartX() + ", " + line.getEndX());
+	            line.setEndY(t.getSceneY());
 	                       
 	            double length = Math.sqrt(Math.pow( line.getStartX() - line.getEndX() , 2) + 
 	            		( Math.pow(line.getStartY() - line.getEndY(), 2)));
@@ -247,7 +245,7 @@ public class Main extends Application{
 	            	System.out.println("Muted");
 	            }else{
 	            	// Normalise and set volume of node
-		            //System.out.println(length);
+		            System.out.println(length);
 	            }
 	        }
 	    };
