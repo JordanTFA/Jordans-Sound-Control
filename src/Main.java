@@ -2,7 +2,6 @@ import java.util.ArrayList;
 import java.util.Random;
 
 import javafx.application.Application;
-import javafx.beans.value.ChangeListener;
 import javafx.event.EventHandler;
 import javafx.scene.Cursor;
 import javafx.scene.Scene;
@@ -10,6 +9,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
@@ -22,21 +22,20 @@ import javafx.stage.Stage;
 
 public class Main extends Application{
 	
-	private static Stage primaryStage;
 	private static Scene scene;
 	
 	private static Rectangle muteArea;
 	private static Circle soundArea;
 	
 	private static VBox controls;
-	private static HBox circles;
-	private static VBox pen;
+	private static Pane circles;
 	
     static double orgSceneX;
 	static double orgSceneY;
     static double orgTranslateX, orgTranslateY;
     
     private Node me;
+    public final static double NODE_RADIUS = 15;
  
 	static Line line;
 	
@@ -49,82 +48,67 @@ public class Main extends Application{
 
 	@SuppressWarnings("unused")
 	@Override
-	public void start(Stage s) throws Exception {
-		
-		primaryStage = s;
+	public void start(Stage stage) throws Exception {
+
 		nodes = new ArrayList<Node>();
-		
 		line = new Line();
 		
-		primaryStage.setTitle("Jordan\'s Sound Control");
+		stage.setTitle("Jordan\'s Sound Control");
 		
-		muteArea = new Rectangle();
-		muteArea.setX(10);
-		muteArea.setY(10);
-		muteArea.setWidth(500);
-		muteArea.setHeight(500);
-		muteArea.setFill(Color.POWDERBLUE);
+		muteArea = new Rectangle(500, 500, Color.POWDERBLUE);
+		soundArea = new Circle(250, Color.DODGERBLUE);
+		soundArea.setCenterX(muteArea.getWidth() / 2);
+		soundArea.setCenterY(muteArea.getHeight() / 2);
 		
-		soundArea = new Circle();
-		soundArea.setRadius(250);
-		soundArea.setFill(Color.DODGERBLUE);
-		
-		Button add = new Button();
-		add.setText("Add Node");
+		Button add = new Button("Add Node");
 		add.setOnAction(e -> NodeWindow.display());
 		
-		Button delete = new Button();
-		delete.setText("Delete Node");
-		
+		Button delete = new Button("Delete Node");
 		delete.setOnAction(e->{
 			if(1<3){
 				// Node is selected -> Remove node
 				System.out.println("Deleted <node>");
 				
-			} else{
-				
+			} else{	
 				// TODO: Make this graphical
-				System.out.println("Select a node!");
-				
+				System.out.println("Select a node!");			
 			}
-				
 		});
 		
 		me = new Node("Me", Color.RED, 0.0, soundArea.getCenterX(), soundArea.getCenterY());
 		StackPane Me = addMeNode(me);
-		StackPane stack = new StackPane();
-		stack.getChildren().addAll(muteArea, soundArea, line, Me);
+		Me.setLayoutX(me.x - NODE_RADIUS);
+		Me.setLayoutY(me.y - NODE_RADIUS);
+
+		circles = new Pane();//HBox(0);
+		circles.getChildren().addAll(muteArea, soundArea, line, Me);
 		
-		circles = new HBox(5);
-		circles.getChildren().add(stack);
-		
-		controls = new VBox(10);
+		controls = new VBox(30);
 		controls.getChildren().addAll(add, delete);
-		
-		pen = new VBox();
+
 		// TODO: This
 		
-		/* ******************************
+		/* HBox layout
+		 * 
+		 * ******************************
 		 * *                 *          *
-		 * *                 * controls *
+		 * *                 *  		*
 		 * *                 *          *
-		 * *     circles     * **********
+		 * *     circles     * controls	*
 		 * *                 *          *
-		 * *                 *    pen   *
+		 * *                 *          *
 		 * *                 *          *
 		 * ******************************
-		 */
-		
+		 */	
 		
 		HBox layout = new HBox(10);
 		layout.getChildren().addAll(circles, controls);
 		
 		scene = new Scene(layout, 800, 500);
-		primaryStage.setScene(scene);
+		stage.setScene(scene);
+		stage.show();
 		
-		primaryStage.show();
-		
-		s.widthProperty().addListener((obs, oldVal, newVal) -> {
+		stage.widthProperty().addListener((obs, oldVal, newVal) -> {
 
 			muteArea.setWidth((double) oldVal - ((double)oldVal / 6));
 			soundArea.setCenterX(((double) oldVal / 2.0));
@@ -132,7 +116,7 @@ public class Main extends Application{
 
 		});
 
-		s.heightProperty().addListener((obs, oldVal, newVal) -> {
+		stage.heightProperty().addListener((obs, oldVal, newVal) -> {
 
 			muteArea.setHeight((double) oldVal - 10 );
 			soundArea.setCenterX(((double) oldVal / 2.0));
@@ -142,27 +126,21 @@ public class Main extends Application{
 		
 	}
 	
-	public static void drawLine(){
-		
-	}
-	
 	public static void addNode(Node node){
 		nodes.add(node);
 		
 		StackPane stack = new StackPane();
 		Random rand = new Random();
 		
-		// Set x coord of node to a random spot
-		int randWidth = rand.nextInt((int)muteArea.getWidth());
+		// Set x coordinate of node to a random spot
+		double randWidth = rand.nextInt((int)muteArea.getWidth() - 50);
+		node.setX(randWidth);
 		
-		// Set y coord of node to a random spot
-		int randHeight = rand.nextInt((int)muteArea.getHeight());
+		// Set y coordinate of node to a random spot
+		double randHeight = rand.nextInt((int)muteArea.getHeight() - 50);
+		node.setY(randHeight);
 
-		Circle crc = new Circle();
-		crc.setFill(node.colour);
-		crc.setRadius(15);
-		crc.setCenterX(randWidth);
-		crc.setCenterY(randHeight);
+		Circle crc = new Circle(NODE_RADIUS, node.colour);
 
 		Label lbl = new Label(node.name);
 		lbl.setStyle("-fx-font:14 arial;");
@@ -172,6 +150,7 @@ public class Main extends Application{
 		stack.setOnMousePressed(circleOnMousePressedEventHandler);
         stack.setOnMouseDragged(circleOnMouseDraggedEventHandler);
 
+        stack.relocate(randWidth, randHeight);
 		circles.getChildren().add(stack);
 		stack.toFront();
 		
@@ -180,11 +159,7 @@ public class Main extends Application{
 	
 	public static StackPane addMeNode(Node me){
 		
-		Circle crc = new Circle();
-		crc.setFill(me.colour);
-		crc.setRadius(15);
-		crc.setCenterX(me.x);
-		crc.setCenterY(me.y);
+		Circle crc = new Circle(NODE_RADIUS, me.colour);
 		
 		Label lblme = new Label(me.name);
 		lblme.setStyle("-fx-font:14 arial;");
@@ -199,59 +174,71 @@ public class Main extends Application{
 	static EventHandler<MouseEvent> circleOnMousePressedEventHandler = 
 	        new EventHandler<MouseEvent>() {
 	 
-	        @Override
-	        public void handle(MouseEvent t) {
-	            orgSceneX = t.getSceneX();
-	            orgSceneY = t.getSceneY();
-	            orgTranslateX = ((StackPane)(t.getSource())).getTranslateX();
-	            orgTranslateY = ((StackPane)(t.getSource())).getTranslateY();
-	        }
-	    };
+		@Override
+		public void handle(MouseEvent t) {
+			
+		  orgSceneX = t.getSceneX();
+	      orgSceneY = t.getSceneY();
+	      orgTranslateX = ((StackPane)(t.getSource())).getTranslateX();
+	      orgTranslateY = ((StackPane)(t.getSource())).getTranslateY();
+	  	}
+	};
 	     
-	    static EventHandler<MouseEvent> circleOnMouseDraggedEventHandler = 
+	static EventHandler<MouseEvent> circleOnMouseDraggedEventHandler = 
 	        new EventHandler<MouseEvent>() {
 	 
-	        @Override
-	        public void handle(MouseEvent t) {
-	            double offsetX = t.getSceneX() - orgSceneX;
-	            double offsetY = t.getSceneY() - orgSceneY;
-	            double newTranslateX = orgTranslateX + offsetX;
-	            double newTranslateY = orgTranslateY + offsetY;
+		@Override
+	    public void handle(MouseEvent t) {
+			
+			translateSelectedNode(t);
+			updateLine(t);
+			adjustVolume();
 
-	            ((StackPane)(t.getSource())).setTranslateX(newTranslateX);
-	            ((StackPane)(t.getSource())).setTranslateY(newTranslateY);
-	            //System.out.println(t.getSceneX() + " " + t.getSceneY());
-
-	            double startX = muteArea.getWidth() / 2;
-	            double startY = muteArea.getHeight() / 2;
-	            
-	            double endX = t.getSceneX();
-	            double endY = t.getSceneY();
-	            
-	            //line = new Line(startX, startY, endX, endY);
-	            //circles.getChildren().addAll(line);
-	               
-	            line.setStartX(muteArea.getWidth() / 2); // Mid point
-	            line.setStartY(muteArea.getHeight() / 2);
-	            
-	            line.setEndX(t.getSceneX());
-	            line.setEndY(t.getSceneY());
-	                       
-	            double length = Math.sqrt(Math.pow( line.getStartX() - line.getEndX() , 2) + 
-	            		( Math.pow(line.getStartY() - line.getEndY(), 2)));
-	               
-	            if(length > soundArea.getRadius()){
-	            	// Set volume of node to 0
-	            	System.out.println("Muted");
-	            }else{
-	            	// Normalise and set volume of node
-		            System.out.println(length);
-	            }
-	        }
-	    };
+		}
+	};
 	
-	public static void broadcastToUser(){
+	public static void translateSelectedNode(MouseEvent t){
 		
+		double offsetX = t.getSceneX() - orgSceneX;
+		double offsetY = t.getSceneY() - orgSceneY;
+		double newTranslateX = orgTranslateX + offsetX;
+		double newTranslateY = orgTranslateY + offsetY;
+
+		((StackPane)(t.getSource())).setTranslateX(newTranslateX);
+		((StackPane)(t.getSource())).setTranslateY(newTranslateY);
+		
+	}
+	
+	public static void updateLine(MouseEvent t){
+		
+		line.setStartX(muteArea.getWidth() / 2); // Mid point
+		line.setStartY(muteArea.getHeight() / 2);
+            
+		line.setEndX(t.getSceneX());
+		line.setEndY(t.getSceneY());
+		
+	}
+	
+	public static void adjustVolume(){
+		
+		// Length of line
+		double length = Math.sqrt(Math.pow( line.getStartX() - line.getEndX() , 2) + 
+				( Math.pow(line.getStartY() - line.getEndY(), 2)));
+                          
+		if(length > soundArea.getRadius()){
+			// Set volume of node to 0
+			System.out.println("Muted");
+		}else{
+			// Normalise and set volume of node
+			int volume = (int)normaliseVolume(soundArea.getRadius(), length);
+			System.out.println(volume + "%");
+		}
+		
+	}
+	
+	public static double normaliseVolume(double maxVol, double currentVol){
+	    	
+		return 100 - ((currentVol / maxVol) * 100);
 	}
 	
     public Node getMe() {
