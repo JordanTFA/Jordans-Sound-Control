@@ -192,7 +192,7 @@ public class Main extends Application{
 			
 			translateSelectedNode(t);
 			updateLine(t);
-			adjustVolume();
+			adjustVolume(t);
 
 		}
 	};
@@ -219,7 +219,7 @@ public class Main extends Application{
 		
 	}
 	
-	public static void adjustVolume(){
+	public static void adjustVolume(MouseEvent t){
 		
 		// Length of line
 		double length = Math.sqrt(Math.pow( line.getStartX() - line.getEndX() , 2) + 
@@ -227,7 +227,7 @@ public class Main extends Application{
                           
 		if(length > soundArea.getRadius()){
 			// Set volume of node to 0
-			System.out.println("Muted");
+			System.out.println(t.getSource().toString());
 		}else{
 			// Normalise and set volume of node
 			int volume = (int)normaliseVolume(soundArea.getRadius(), length);
