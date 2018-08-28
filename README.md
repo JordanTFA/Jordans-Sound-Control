@@ -9,3 +9,5 @@ This application allows you manage sound volume from multiple of sources simply 
 
 - Allow multiple lines
 - Access a node's properties (rather than the stackpane's)
+- Create sound selection
+- Change volume of sound based on proximity
