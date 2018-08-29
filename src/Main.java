@@ -227,7 +227,7 @@ public class Main extends Application{
                           
 		if(length > soundArea.getRadius()){
 			// Set volume of node to 0
-			System.out.println(t.getSource().toString());
+			System.out.println("Muted");
 		}else{
 			// Normalise and set volume of node
 			int volume = (int)normaliseVolume(soundArea.getRadius(), length);
@@ -238,6 +238,7 @@ public class Main extends Application{
 	
 	public static double normaliseVolume(double maxVol, double currentVol){
 	    	
+		// Convert length to percentage
 		return 100 - ((currentVol / maxVol) * 100);
 	}
 	
