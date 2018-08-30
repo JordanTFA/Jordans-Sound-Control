@@ -204,9 +204,9 @@ public class Main extends Application{
 		double newTranslateX = orgTranslateX + offsetX;
 		double newTranslateY = orgTranslateY + offsetY;
 
+		// TODO: Add bounds
 		((StackPane)(t.getSource())).setTranslateX(newTranslateX);
 		((StackPane)(t.getSource())).setTranslateY(newTranslateY);
-		
 	}
 	
 	public static void updateLine(MouseEvent t){
