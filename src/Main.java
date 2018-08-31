@@ -34,7 +34,7 @@ public class Main extends Application{
 	static double orgSceneY;
     static double orgTranslateX, orgTranslateY;
     
-    private Node me;
+    private static Node me;
     public final static double NODE_RADIUS = 15;
  
 	static Line line;
@@ -46,12 +46,18 @@ public class Main extends Application{
 		launch(args);
 	}
 
-	@SuppressWarnings("unused")
 	@Override
 	public void start(Stage stage) throws Exception {
 
 		nodes = new ArrayList<Node>();
 		line = new Line();
+		
+		buildWindow(stage);
+		buildCircles(stage);
+	}
+	
+	@SuppressWarnings("unused")
+	public static void buildWindow(Stage stage){
 		
 		stage.setTitle("Jordan\'s Sound Control");
 		
@@ -73,40 +79,30 @@ public class Main extends Application{
 				// TODO: Make this graphical
 				System.out.println("Select a node!");			
 			}
-		});
-		
-		me = new Node("Me", Color.RED, 0.0, soundArea.getCenterX(), soundArea.getCenterY());
-		StackPane Me = addMeNode(me);
-		Me.setLayoutX(me.x - NODE_RADIUS);
-		Me.setLayoutY(me.y - NODE_RADIUS);
-
-		circles = new Pane();//HBox(0);
-		circles.getChildren().addAll(muteArea, soundArea, line, Me);
+		});	
 		
 		controls = new VBox(30);
 		controls.getChildren().addAll(add, delete);
+		
+		circles = new Pane();
+		circles.getChildren().addAll(muteArea, soundArea, line, Me);
 
-		// TODO: This
-		
-		/* HBox layout
-		 * 
-		 * ******************************
-		 * *                 *          *
-		 * *                 *  		*
-		 * *                 *          *
-		 * *     circles     * controls	*
-		 * *                 *          *
-		 * *                 *          *
-		 * *                 *          *
-		 * ******************************
-		 */	
-		
 		HBox layout = new HBox(10);
 		layout.getChildren().addAll(circles, controls);
 		
 		scene = new Scene(layout, 800, 500);
 		stage.setScene(scene);
 		stage.show();
+	}
+	
+	public static void buildCircles(Stage stage){
+		
+		me = new Node("Me", Color.RED, 0.0, soundArea.getCenterX(), soundArea.getCenterY());
+		StackPane Me = addMeNode(me);
+
+
+		
+
 		
 		stage.widthProperty().addListener((obs, oldVal, newVal) -> {
 
@@ -123,6 +119,10 @@ public class Main extends Application{
 			soundArea.setCenterY(((double) oldVal / 2.0));
 			soundArea.setRadius(((double) oldVal / 2.0) - 40);
 		});
+		
+	}
+	
+	public static void buildControls(Stage stage){
 		
 	}
 	
@@ -163,7 +163,10 @@ public class Main extends Application{
 		
 		Label lblme = new Label(me.name);
 		lblme.setStyle("-fx-font:14 arial;");
+		
 		StackPane Me = new StackPane();
+		Me.setLayoutX(me.x - NODE_RADIUS);
+		Me.setLayoutY(me.y - NODE_RADIUS);
 		
 		Me.getChildren().addAll(crc, lblme);
 		
