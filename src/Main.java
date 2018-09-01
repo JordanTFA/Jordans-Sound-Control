@@ -34,7 +34,7 @@ public class Main extends Application{
 	static double orgSceneY;
     static double orgTranslateX, orgTranslateY;
     
-    private static Node me;
+    private static Node meNode;
     public final static double NODE_RADIUS = 15;
  
 	static Line line;
@@ -52,57 +52,21 @@ public class Main extends Application{
 		nodes = new ArrayList<Node>();
 		line = new Line();
 		
-		buildWindow(stage);
-		buildCircles(stage);
+		build(stage);
 	}
 	
-	@SuppressWarnings("unused")
-	public static void buildWindow(Stage stage){
+	public static void build(Stage stage){
 		
-		stage.setTitle("Jordan\'s Sound Control");
+		buildWindow(stage);
+		VBox controls = buildControls();
+		Pane circles = buildCircles();
 		
-		muteArea = new Rectangle(500, 500, Color.POWDERBLUE);
-		soundArea = new Circle(250, Color.DODGERBLUE);
-		soundArea.setCenterX(muteArea.getWidth() / 2);
-		soundArea.setCenterY(muteArea.getHeight() / 2);
-		
-		Button add = new Button("Add Node");
-		add.setOnAction(e -> NodeWindow.display());
-		
-		Button delete = new Button("Delete Node");
-		delete.setOnAction(e->{
-			if(1<3){
-				// Node is selected -> Remove node
-				System.out.println("Deleted <node>");
-				
-			} else{	
-				// TODO: Make this graphical
-				System.out.println("Select a node!");			
-			}
-		});	
-		
-		controls = new VBox(30);
-		controls.getChildren().addAll(add, delete);
-		
-		circles = new Pane();
-		circles.getChildren().addAll(muteArea, soundArea, line, Me);
-
 		HBox layout = new HBox(10);
 		layout.getChildren().addAll(circles, controls);
-		
+
 		scene = new Scene(layout, 800, 500);
 		stage.setScene(scene);
 		stage.show();
-	}
-	
-	public static void buildCircles(Stage stage){
-		
-		me = new Node("Me", Color.RED, 0.0, soundArea.getCenterX(), soundArea.getCenterY());
-		StackPane Me = addMeNode(me);
-
-
-		
-
 		
 		stage.widthProperty().addListener((obs, oldVal, newVal) -> {
 
@@ -119,11 +83,60 @@ public class Main extends Application{
 			soundArea.setCenterY(((double) oldVal / 2.0));
 			soundArea.setRadius(((double) oldVal / 2.0) - 40);
 		});
-		
 	}
 	
-	public static void buildControls(Stage stage){
+	public static void buildWindow(Stage stage){
 		
+		stage.setTitle("Jordan\'s Sound Control");
+		
+		muteArea = new Rectangle(500, 500, Color.POWDERBLUE);
+		soundArea = new Circle(250, Color.DODGERBLUE);
+		soundArea.setCenterX(muteArea.getWidth() / 2);
+		soundArea.setCenterY(muteArea.getHeight() / 2);
+	}
+	
+	public static Pane buildCircles(){
+		
+		meNode = new Node("Me", Color.RED, 0.0, soundArea.getCenterX(), soundArea.getCenterY());
+		StackPane MeNode = addMeNode(meNode);
+		
+		circles = new Pane();
+		circles.getChildren().addAll(muteArea, soundArea, line, MeNode);
+		
+		return circles;
+	}
+	
+	@SuppressWarnings("unused")
+	public static VBox buildControls(){
+		
+		Button add = new Button("Add Node");
+		add.setOnAction(e -> NodeWindow.display());
+		
+		Button delete = new Button("Delete Node");
+		delete.setOnAction(e -> {
+			if(1 < 3){
+				// Node is selected -> Remove node
+				System.out.println("Deleted <node>");
+				
+			} else{	
+				// TODO: Make this graphical
+				System.out.println("Select a node!");			
+			}
+		});	
+		
+		Button selectTrack = new Button("Select a track");
+		selectTrack.setOnAction(e -> {
+			if(1 < 3){
+				// Node is selected -> Select Track
+			}else{
+				System.out.println("Select a node!");
+			}		
+		});
+		
+		controls = new VBox(30);
+		controls.getChildren().addAll(add, delete);
+		
+		return controls;
 	}
 	
 	public static void addNode(Node node){
@@ -164,13 +177,13 @@ public class Main extends Application{
 		Label lblme = new Label(me.name);
 		lblme.setStyle("-fx-font:14 arial;");
 		
-		StackPane Me = new StackPane();
-		Me.setLayoutX(me.x - NODE_RADIUS);
-		Me.setLayoutY(me.y - NODE_RADIUS);
+		StackPane stackCentral = new StackPane();
+		stackCentral.setLayoutX(me.x - NODE_RADIUS);
+		stackCentral.setLayoutY(me.y - NODE_RADIUS);
 		
-		Me.getChildren().addAll(crc, lblme);
+		stackCentral.getChildren().addAll(crc, lblme);
 		
-		return Me;
+		return stackCentral;
 		
 	}
 	
@@ -245,12 +258,11 @@ public class Main extends Application{
 		return 100 - ((currentVol / maxVol) * 100);
 	}
 	
-    public Node getMe() {
-		return me;
+    public Node getMeNode() {
+		return meNode;
 	}
 
-	public void setMe(Node me) {
-		this.me = me;
-	}
-	
+	public void setMe(Node meNode) {
+		Main.meNode = meNode;
+	}	
 }
