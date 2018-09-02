@@ -64,25 +64,42 @@ public class Main extends Application{
 		HBox layout = new HBox(10);
 		layout.getChildren().addAll(circles, controls);
 
-		scene = new Scene(layout, 800, 500);
+		scene = new Scene(layout, 620, 500);
 		stage.setScene(scene);
 		stage.show();
 		
+		// TODO: Make the MeNode change location as well
 		stage.widthProperty().addListener((obs, oldVal, newVal) -> {
 
-			muteArea.setWidth((double) oldVal - ((double)oldVal / 6));
-			soundArea.setCenterX(((double) oldVal / 2.0));
-			soundArea.setCenterY(((double) oldVal / 2.0));
+			muteArea.setWidth((double) oldVal - (120));
+			soundArea.setCenterX(muteArea.getWidth() / 2);
+			soundArea.setCenterY(muteArea.getHeight() / 2);
+			
+			soundArea.setRadius(getCircleRadius());
 
 		});
 
 		stage.heightProperty().addListener((obs, oldVal, newVal) -> {
 
-			muteArea.setHeight((double) oldVal - 10 );
-			soundArea.setCenterX(((double) oldVal / 2.0));
-			soundArea.setCenterY(((double) oldVal / 2.0));
-			soundArea.setRadius(((double) oldVal / 2.0) - 40);
+			muteArea.setHeight((double)oldVal);
+			soundArea.setCenterX(muteArea.getWidth() / 2);
+			soundArea.setCenterY(muteArea.getHeight() / 2);
+			
+			soundArea.setRadius(getCircleRadius());
+
 		});
+	}
+	
+	public static double getCircleRadius(){
+		
+		double radius = muteArea.getWidth();
+		if(muteArea.getHeight() < radius){
+			radius = muteArea.getHeight();
+		}
+		
+		radius /= 2;
+		
+		return radius;
 	}
 	
 	public static void buildWindow(Stage stage){
@@ -133,8 +150,8 @@ public class Main extends Application{
 			}		
 		});
 		
-		controls = new VBox(30);
-		controls.getChildren().addAll(add, delete);
+		controls = new VBox(5);
+		controls.getChildren().addAll(add, delete, selectTrack);
 		
 		return controls;
 	}
