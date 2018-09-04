@@ -143,6 +143,9 @@ public class Main extends Application{
 		
 		Button selectTrack = new Button("Select a track");
 		selectTrack.setOnAction(e -> {
+			
+			trackSelection(new Stage());
+				
 			if(1 < 3){
 				// Node is selected -> Select Track
 			}else{
@@ -154,6 +157,19 @@ public class Main extends Application{
 		controls.getChildren().addAll(add, delete, selectTrack);
 		
 		return controls;
+	}
+	
+	// TODO: Maybe make this its own class
+	public static void trackSelection(Stage stage){
+		
+		stage.setTitle("Select a track");
+		
+		VBox layout = new VBox(20);
+		Scene scene = new Scene(layout, 300, 300);
+		
+		stage.setScene(scene);
+		stage.showAndWait();
+		
 	}
 	
 	public static void addNode(Node node){
