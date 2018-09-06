@@ -1,3 +1,4 @@
+import java.io.File;
 import java.util.ArrayList;
 
 import javafx.scene.Scene;
@@ -24,8 +25,14 @@ public class AudioTracks {
 		
 		String path = "res//tracks//";
 		
+		File folder = new File(path);
+		File[] listOfFiles = folder.listFiles();
+		
+		for(File file : listOfFiles){
+			System.out.println(file.getName());
+		}
+		
 		// TODO: Get list of all files in the folder
 		return null;
 	}
-
 }

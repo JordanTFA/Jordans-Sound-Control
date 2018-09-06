@@ -70,13 +70,20 @@ public class Main extends Application{
 		
 		// TODO: Make the MeNode change location as well
 		stage.widthProperty().addListener((obs, oldVal, newVal) -> {
+			
+			double centreX = muteArea.getWidth() / 2;
+			double centerY = muteArea.getHeight() / 2;
 
 			muteArea.setWidth((double) oldVal - (120));
-			soundArea.setCenterX(muteArea.getWidth() / 2);
-			soundArea.setCenterY(muteArea.getHeight() / 2);
+			soundArea.setCenterX(centreX);
+			soundArea.setCenterY(centerY);
 			
 			soundArea.setRadius(getCircleRadius());
-
+			
+			meNode.setX(centreX);
+			meNode.setY(centerY);
+			
+			addMeNode(meNode);
 		});
 
 		stage.heightProperty().addListener((obs, oldVal, newVal) -> {
@@ -188,13 +195,12 @@ public class Main extends Application{
 		Label lblme = new Label(me.name);
 		lblme.setStyle("-fx-font:14 arial;");
 		
-		StackPane stackCentral = new StackPane();
-		stackCentral.setLayoutX(me.x - NODE_RADIUS);
-		stackCentral.setLayoutY(me.y - NODE_RADIUS);
+		StackPane stackMe = new StackPane();
+		stackMe.relocate(me.x - NODE_RADIUS, me.y - NODE_RADIUS);
 		
-		stackCentral.getChildren().addAll(crc, lblme);
+		stackMe.getChildren().addAll(crc, lblme);
 		
-		return stackCentral;
+		return stackMe;
 		
 	}
 	
