@@ -1,14 +1,19 @@
 import java.io.File;
 import java.util.ArrayList;
 
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.scene.Scene;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.shape.Circle;
 import javafx.stage.Stage;
 
 public class AudioTracks {
+	
+	private static Label output;
 	
 	public static void draw(ArrayList<Node> nodes){
 		
@@ -19,9 +24,10 @@ public class AudioTracks {
 		
 		ArrayList<String> tracks = getTracks();
 		ComboBox<String> combo = fillOutTracks(tracks);
-
-		layout.getChildren().addAll(drawCircles(nodes), combo);
 		
+		output = new Label();
+		layout.getChildren().addAll(drawCircles(nodes), combo, output);
+
 		Scene scene = new Scene(layout, 300, 300);
 		stage.setScene(scene);
 		stage.showAndWait();
@@ -36,6 +42,14 @@ public class AudioTracks {
 		for(String track : tracks){
 			combo.getItems().add(track);
 		}
+		
+		combo.valueProperty().addListener(new ChangeListener<String>() {
+
+	        @Override
+	        public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
+	        	output.setText(combo.getValue());
+	        }
+	    });
 		return combo;
 	}
 	
@@ -46,7 +60,7 @@ public class AudioTracks {
 		double radius = 15;
 		
 		for(Node node : nodes){
-			Circle circle = new Circle(15, node.colour);
+			Circle circle = new Circle(radius, node.colour);
 			circleLayout.getChildren().add(circle);
 		}
 		
@@ -62,7 +76,6 @@ public class AudioTracks {
 		File[] listOfFiles = folder.listFiles();
 		
 		for(File file : listOfFiles){
-			System.out.println(file.getName());
 			tracks.add(file.getName());
 		}
 		return tracks;
