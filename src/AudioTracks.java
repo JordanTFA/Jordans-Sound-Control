@@ -15,6 +15,7 @@ public class AudioTracks {
 	
 	private static Label output;
 	
+	// Draw main window
 	public static void draw(ArrayList<Node> nodes){
 		
 		Stage stage = new Stage();
@@ -33,6 +34,7 @@ public class AudioTracks {
 		stage.showAndWait();
 	}
 	
+	// Make the combobox for the tracks and populate it
 	public static ComboBox<String> fillOutTracks(ArrayList<String> tracks){
 		
 		ComboBox<String> combo = new ComboBox<String>();
@@ -45,6 +47,7 @@ public class AudioTracks {
 		
 		combo.valueProperty().addListener(new ChangeListener<String>() {
 
+			// Update the label
 	        @Override
 	        public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
 	        	output.setText(combo.getValue());
@@ -53,6 +56,8 @@ public class AudioTracks {
 		return combo;
 	}
 	
+	// Draw each of the nodes
+	// Need to make them selectable
 	public static HBox drawCircles(ArrayList<Node> nodes){
 		
 		HBox circleLayout = new HBox(5);
@@ -67,6 +72,7 @@ public class AudioTracks {
 		return circleLayout;	
 	}
 	
+	// Get all of the tracks from the res/tracks folder
 	public static ArrayList<String> getTracks(){
 		
 		ArrayList<String> tracks = new ArrayList<String>();
