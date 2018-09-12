@@ -11,12 +11,13 @@ public class Node {
 	
 	static MediaPlayer player;
 	
-	public Node(String name, javafx.scene.paint.Color colour, Double volume, Double x, Double y) {
+	public Node(String name, javafx.scene.paint.Color colour, Double volume, Double x, Double y, String track) {
 		this.name = name;
 		this.colour = colour;
 		this.volume = volume;
 		this.x = x;
 		this.y = y;
+		this.track = track;
 	}
 	
 	public static void playTrack(String track){
@@ -26,7 +27,7 @@ public class Node {
 		System.out.println(path);
 		
 		Media media = new Media(Node.class.getResource(path).toExternalForm());
-		player = new MediaPlayer(media); 
+		player = new MediaPlayer(media);
 		player.play();
 	}
 	

@@ -56,6 +56,13 @@ public class AudioTracks {
 		return combo;
 	}
 	
+	public static void playTracks(ArrayList<Node> nodes){
+		
+		for(Node node : nodes){
+			Node.playTrack(node.track);
+		}
+	}
+	
 	// Draw each of the nodes
 	// Need to make them selectable
 	public static HBox drawCircles(ArrayList<Node> nodes){

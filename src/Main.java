@@ -121,7 +121,7 @@ public class Main extends Application{
 	
 	public static Pane buildCircles(){
 		
-		meNode = new Node("Me", Color.RED, 0.0, soundArea.getCenterX(), soundArea.getCenterY());
+		meNode = new Node("Me", Color.RED, 0.0, soundArea.getCenterX(), soundArea.getCenterY(), "");
 		StackPane MeNode = addMeNode(meNode);
 		
 		circles = new Pane();
@@ -263,6 +263,7 @@ public class Main extends Application{
 			System.out.println("Muted");
 		}else{
 			// Normalise and set volume of node
+			// TODO: Set the node's volume
 			int volume = (int)normaliseVolume(soundArea.getRadius(), length);
 			System.out.println(volume + "%");
 		}

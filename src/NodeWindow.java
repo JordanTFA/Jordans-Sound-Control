@@ -67,7 +67,7 @@ public class NodeWindow {
 		ok.setOnAction(e -> {
 			// Get name & Colour then create node
 			
-			Node node = new Node(lbl.getText(), colourPicker.getValue(), 0.0, 0.0, 0.0);	
+			Node node = new Node(lbl.getText(), colourPicker.getValue(), 0.0, 0.0, 0.0, "");	
 			Main.addNode(node);
 			
 			window.close();
