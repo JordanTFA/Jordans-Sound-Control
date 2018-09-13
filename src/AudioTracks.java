@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
@@ -26,8 +27,13 @@ public class AudioTracks {
 		ArrayList<String> tracks = getTracks();
 		ComboBox<String> combo = fillOutTracks(tracks);
 		
+		Button goButton = new Button("Go");
+		goButton.setOnAction(e ->{
+			
+		});
+		
 		output = new Label();
-		layout.getChildren().addAll(drawCircles(nodes), combo, output);
+		layout.getChildren().addAll(drawCircles(nodes), combo, output, goButton);
 
 		Scene scene = new Scene(layout, 300, 300);
 		stage.setScene(scene);

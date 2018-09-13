@@ -226,7 +226,6 @@ public class Main extends Application{
 			translateSelectedNode(t);
 			updateLine(t);
 			adjustVolume(t);
-
 		}
 	};
 	
