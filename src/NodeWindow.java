@@ -1,5 +1,3 @@
-import java.util.ArrayList;
-
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -15,8 +13,6 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 public class NodeWindow {
-	
-	private static ArrayList<Node> nodes;
 
 	public static void display(){
 			
@@ -33,8 +29,6 @@ public class NodeWindow {
 		final Button ok = new Button("Okay");
 		final TextField chooseName = new TextField();
 		final Label lbl = new Label();
-		
-		nodes = new ArrayList<Node>();
 		
 		preview.setFill(colourPicker.getValue());
 		preview.setRadius(75);

@@ -84,13 +84,17 @@ public class Main extends Application{
 			meNode.setY(centerY);
 			
 			addMeNode(meNode);
+
 		});
 
 		stage.heightProperty().addListener((obs, oldVal, newVal) -> {
 
+			double centreX = muteArea.getWidth() / 2;
+			double centerY = muteArea.getHeight() / 2;
+			
 			muteArea.setHeight((double)oldVal);
-			soundArea.setCenterX(muteArea.getWidth() / 2);
-			soundArea.setCenterY(muteArea.getHeight() / 2);
+			soundArea.setCenterX(centreX);
+			soundArea.setCenterY(centerY);
 			
 			soundArea.setRadius(getCircleRadius());
 
@@ -181,7 +185,7 @@ public class Main extends Application{
 		stack.setOnMousePressed(circleOnMousePressedEventHandler);
         stack.setOnMouseDragged(circleOnMouseDraggedEventHandler);
 
-        stack.relocate(randWidth, randHeight);
+        stack.relocate(node.x, node.y);
 		circles.getChildren().add(stack);
 		stack.toFront();
 		
