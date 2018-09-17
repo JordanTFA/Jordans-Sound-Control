@@ -3,11 +3,13 @@ import java.util.ArrayList;
 
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
+import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.shape.Circle;
 import javafx.stage.Stage;
@@ -22,7 +24,9 @@ public class AudioTracks {
 		Stage stage = new Stage();
 		stage.setTitle("Select a track");
 		
-		VBox layout = new VBox(20);
+		VBox layout = new VBox(5);
+		// TODO: Fix this
+		layout.setPadding(new Insets(10, 50, 50, 50));
 		
 		ArrayList<String> tracks = getTracks();
 		ComboBox<String> combo = fillOutTracks(tracks);
@@ -73,13 +77,20 @@ public class AudioTracks {
 	// Need to make them selectable
 	public static HBox drawCircles(ArrayList<Node> nodes){
 		
-		HBox circleLayout = new HBox(5);
+		HBox circleLayout = new HBox(2);
 		
 		double radius = 15;
 		
 		for(Node node : nodes){
 			Circle circle = new Circle(radius, node.colour);
-			circleLayout.getChildren().add(circle);
+			Label label = new Label(node.name);
+			label.setStyle("-fx-font:14 arial;");
+			
+			// TODO: Set an ID
+			
+			StackPane stack = new StackPane();
+			stack.getChildren().addAll(circle, label);
+			circleLayout.getChildren().add(stack);
 		}
 		
 		return circleLayout;	

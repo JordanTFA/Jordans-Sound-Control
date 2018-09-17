@@ -101,6 +101,7 @@ public class Main extends Application{
 		});
 	}
 	
+	// Return the value the radius should be (half of smallest muteArea dimension)
 	public static double getCircleRadius(){
 		
 		double radius = muteArea.getWidth();
@@ -177,10 +178,10 @@ public class Main extends Application{
 
 		Circle crc = new Circle(NODE_RADIUS, node.colour);
 
-		Label lbl = new Label(node.name);
-		lbl.setStyle("-fx-font:14 arial;");
+		Label label = new Label(node.name);
+		label.setStyle("-fx-font:14 arial;");
 		
-		stack.getChildren().addAll(crc, lbl);
+		stack.getChildren().addAll(crc, label);
 		crc.setCursor(Cursor.MOVE);
 		stack.setOnMousePressed(circleOnMousePressedEventHandler);
         stack.setOnMouseDragged(circleOnMouseDraggedEventHandler);
