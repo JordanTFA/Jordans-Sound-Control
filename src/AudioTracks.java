@@ -17,7 +17,9 @@ import javafx.stage.Stage;
 public class AudioTracks {
 	
 	private static Label output;
-	
+	private static String track = "";
+	private static Node selectedNode;
+
 	// Draw main window
 	public static void draw(ArrayList<Node> nodes){
 		
@@ -33,7 +35,8 @@ public class AudioTracks {
 		
 		Button goButton = new Button("Go");
 		goButton.setOnAction(e ->{
-			
+			// TODOL Temporary
+			Node.playTrack(getTrack());
 		});
 		
 		output = new Label();
@@ -60,7 +63,7 @@ public class AudioTracks {
 			// Update the label
 	        @Override
 	        public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
-	        	output.setText(combo.getValue());
+	        	setTrack(combo.getValue());
 	        }
 	    });
 		return combo;
@@ -93,6 +96,8 @@ public class AudioTracks {
 			circleLayout.getChildren().add(stack);
 		}
 		
+		// TODO: Temporary
+		setSelectedNode(nodes.get(0));
 		return circleLayout;	
 	}
 	
@@ -109,5 +114,28 @@ public class AudioTracks {
 			tracks.add(file.getName());
 		}
 		return tracks;
+	}
+	
+	public static void updatePreviewLabel(){
+		
+		output.setText(getSelectedNode().name + " - " + getTrack());
+	}
+	
+	public static String getTrack() {
+		return track;
+	}
+
+	public static void setTrack(String track) {
+		AudioTracks.track = track;
+		updatePreviewLabel();
+	}
+
+	public static Node getSelectedNode() {
+		return selectedNode;
+	}
+
+	public static void setSelectedNode(Node selectedNode) {
+		AudioTracks.selectedNode = selectedNode;
+		updatePreviewLabel();
 	}
 }
