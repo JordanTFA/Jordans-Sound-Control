@@ -5,6 +5,7 @@ import javafx.application.Application;
 import javafx.event.EventHandler;
 import javafx.scene.Cursor;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
@@ -143,23 +144,39 @@ public class Main extends Application{
 		
 		Button delete = new Button("Delete Node");
 		delete.setOnAction(e -> {
+			
 			if(1 < 3){
 				// Node is selected -> Remove node
 				System.out.println("Deleted <node>");
-				
+					
 			} else{	
-				// TODO: Make this graphical
-				System.out.println("Select a node!");			
+				showError();			
 			}
 		});	
 		
 		Button selectTrack = new Button("Assign Tracks");
-		selectTrack.setOnAction(e -> AudioTracks.draw(nodes));
+		selectTrack.setOnAction(e -> {
+
+			try{
+				AudioTracks.draw(nodes);			
+			}catch(IndexOutOfBoundsException ex){
+				showError();
+			}
+
+		});
 		
 		controls = new VBox(5);
 		controls.getChildren().addAll(add, delete, selectTrack);
 		
 		return controls;
+	}
+	
+	public static void showError(){
+		
+		Alert alert = new Alert(Alert.AlertType.ERROR);
+		alert.setHeaderText("Please select a node!");
+		alert.showAndWait();
+		
 	}
 	
 	public static void addNode(Node node){

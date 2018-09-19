@@ -11,6 +11,7 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
+import javafx.scene.media.MediaException;
 import javafx.scene.shape.Circle;
 import javafx.stage.Stage;
 
@@ -35,8 +36,13 @@ public class AudioTracks {
 		
 		Button goButton = new Button("Go");
 		goButton.setOnAction(e ->{
-			// TODOL Temporary
-			Node.playTrack(getTrack());
+			// TODO: Temporary
+			try{
+				Node.playTrack(getTrack());
+			}catch(MediaException ex){
+				output.setText("Select a track");
+			}
+
 		});
 		
 		output = new Label();
