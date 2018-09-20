@@ -3,11 +3,13 @@ import java.util.ArrayList;
 
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
+import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
@@ -53,7 +55,7 @@ public class AudioTracks {
 		stage.showAndWait();
 	}
 	
-	// Make the combobox for the tracks and populate it
+	// Make the ComboBox for the tracks and populate it
 	public static ComboBox<String> fillOutTracks(ArrayList<String> tracks){
 		
 		ComboBox<String> combo = new ComboBox<String>();
@@ -96,16 +98,30 @@ public class AudioTracks {
 			label.setStyle("-fx-font:14 arial;");
 			
 			// TODO: Set an ID
+
 			
 			StackPane stack = new StackPane();
 			stack.getChildren().addAll(circle, label);
 			circleLayout.getChildren().add(stack);
+			
+			stack.setOnMouseClicked(circleOnMousePressedEventHandler);
 		}
 		
 		// TODO: Temporary
 		setSelectedNode(nodes.get(0));
 		return circleLayout;	
 	}
+	
+	static EventHandler<MouseEvent> circleOnMousePressedEventHandler = 
+	        new EventHandler<MouseEvent>() {
+	 
+		@Override
+		public void handle(MouseEvent t) {
+			
+			setSelectedNode(t.getSource().toString());
+
+	  	}
+	};
 	
 	// Get all of the tracks from the res/tracks folder
 	public static ArrayList<String> getTracks(){

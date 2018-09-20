@@ -150,7 +150,7 @@ public class Main extends Application{
 				System.out.println("Deleted <node>");
 					
 			} else{	
-				showError();			
+				showError("No nodes selected!");			
 			}
 		});	
 		
@@ -160,7 +160,7 @@ public class Main extends Application{
 			try{
 				AudioTracks.draw(nodes);			
 			}catch(IndexOutOfBoundsException ex){
-				showError();
+				showError("Please create at least one node!");
 			}
 
 		});
@@ -171,10 +171,10 @@ public class Main extends Application{
 		return controls;
 	}
 	
-	public static void showError(){
+	public static void showError(String message){
 		
 		Alert alert = new Alert(Alert.AlertType.ERROR);
-		alert.setHeaderText("Please select a node!");
+		alert.setHeaderText(message);
 		alert.showAndWait();
 		
 	}
