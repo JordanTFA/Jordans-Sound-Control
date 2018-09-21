@@ -41,7 +41,7 @@ public class Main extends Application{
 	static Line line;
 	
 	Button button;
-	static ArrayList<Node> nodes; // Maybe unnecessary
+	static ArrayList<Node> nodes;
 
 	public static void main(String[] args) {
 		launch(args);

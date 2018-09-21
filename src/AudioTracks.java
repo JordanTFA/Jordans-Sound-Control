@@ -6,6 +6,7 @@ import javafx.beans.value.ObservableValue;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
@@ -49,6 +50,8 @@ public class AudioTracks {
 		
 		output = new Label();
 		layout.getChildren().addAll(drawCircles(nodes), combo, output, goButton);
+		
+		output.setText("Select a track");
 
 		Scene scene = new Scene(layout, 300, 300);
 		stage.setScene(scene);
@@ -98,8 +101,6 @@ public class AudioTracks {
 			label.setStyle("-fx-font:14 arial;");
 			
 			// TODO: Set an ID
-
-			
 			StackPane stack = new StackPane();
 			stack.getChildren().addAll(circle, label);
 			circleLayout.getChildren().add(stack);
@@ -118,8 +119,13 @@ public class AudioTracks {
 		@Override
 		public void handle(MouseEvent t) {
 			
-			setSelectedNode(t.getSource().toString());
-
+			// TODO: When node's properties are accessible through stackpane
+			// setSelectedNode() = node.name
+			
+			//setSelectedNode((Node) t.getSource());
+			Alert alert = new Alert(Alert.AlertType.ERROR);
+			alert.setHeaderText("Don't press that");
+			alert.showAndWait();
 	  	}
 	};
 	
