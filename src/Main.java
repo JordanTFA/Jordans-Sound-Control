@@ -42,6 +42,8 @@ public class Main extends Application{
 	
 	Button button;
 	static ArrayList<Node> nodes;
+	
+	static StackPane selectedNode;
 
 	public static void main(String[] args) {
 		launch(args);
@@ -145,9 +147,9 @@ public class Main extends Application{
 		Button delete = new Button("Delete Node");
 		delete.setOnAction(e -> {
 			
-			if(1 < 3){
+			if(getSelectedNode() != null){
 				// Node is selected -> Remove node
-				System.out.println("Deleted <node>");
+				circles.getChildren().removeAll(getSelectedNode(), line);
 					
 			} else{	
 				showError("No nodes selected!");			
@@ -245,6 +247,8 @@ public class Main extends Application{
 		@Override
 	    public void handle(MouseEvent t) {
 			
+			setSelectedNode((StackPane)t.getSource());
+			
 			translateSelectedNode(t);
 			updateLine(t);
 			adjustVolume(t);
@@ -304,4 +308,12 @@ public class Main extends Application{
 	public void setMe(Node meNode) {
 		Main.meNode = meNode;
 	}	
+	
+	public static StackPane getSelectedNode() {
+		return selectedNode;
+	}
+
+	public static void setSelectedNode(StackPane selectedNode) {
+		Main.selectedNode = selectedNode;
+	}
 }
