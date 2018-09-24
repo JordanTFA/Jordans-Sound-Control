@@ -24,7 +24,7 @@ public class Node {
 		
 		String path = "tracks/" + track;
 		
-		System.out.println(path);
+		System.out.println("Playing: " + path);
 		
 		Media media = new Media(Node.class.getResource(path).toExternalForm());
 		player = new MediaPlayer(media);

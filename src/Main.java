@@ -35,7 +35,8 @@ public class Main extends Application{
 	static double orgSceneY;
     static double orgTranslateX, orgTranslateY;
     
-    private static Node meNode;
+    //private static Node meNode;
+    private static StackPane MeNode;
     public final static double NODE_RADIUS = 15;
  
 	static Line line;
@@ -75,19 +76,15 @@ public class Main extends Application{
 		stage.widthProperty().addListener((obs, oldVal, newVal) -> {
 			
 			double centreX = muteArea.getWidth() / 2;
-			double centerY = muteArea.getHeight() / 2;
+			double centreY = muteArea.getHeight() / 2;
 
 			muteArea.setWidth((double) oldVal - (120));
 			soundArea.setCenterX(centreX);
-			soundArea.setCenterY(centerY);
+			soundArea.setCenterY(centreY);
 			
 			soundArea.setRadius(getCircleRadius());
 			
-			meNode.setX(centreX);
-			meNode.setY(centerY);
-			
-			addMeNode(meNode);
-
+			MeNode.relocate(centreX - NODE_RADIUS, centreY - NODE_RADIUS);
 		});
 
 		stage.heightProperty().addListener((obs, oldVal, newVal) -> {
@@ -129,16 +126,15 @@ public class Main extends Application{
 	
 	public static Pane buildCircles(){
 		
-		meNode = new Node("Me", Color.RED, 0.0, soundArea.getCenterX(), soundArea.getCenterY(), "");
-		StackPane MeNode = addMeNode(meNode);
+		Node meNode = new Node("Me", Color.RED, 0.0, soundArea.getCenterX(), soundArea.getCenterY(), "");
+		MeNode = addMeNode(meNode);
 		
 		circles = new Pane();
 		circles.getChildren().addAll(muteArea, soundArea, line, MeNode);
 		
 		return circles;
 	}
-	
-	@SuppressWarnings("unused")
+
 	public static VBox buildControls(){
 		
 		Button add = new Button("Add Node");
@@ -152,6 +148,7 @@ public class Main extends Application{
 				circles.getChildren().removeAll(getSelectedNode(), line);
 					
 			} else{	
+				// No node is selected -> Show user error
 				showError("No nodes selected!");			
 			}
 		});	
@@ -300,14 +297,6 @@ public class Main extends Application{
 		// Convert length to percentage
 		return 100 - ((currentVol / maxVol) * 100);
 	}
-	
-    public Node getMeNode() {
-		return meNode;
-	}
-
-	public void setMe(Node meNode) {
-		Main.meNode = meNode;
-	}	
 	
 	public static StackPane getSelectedNode() {
 		return selectedNode;
