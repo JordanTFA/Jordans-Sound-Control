@@ -35,8 +35,7 @@ public class Main extends Application{
 	static double orgSceneY;
     static double orgTranslateX, orgTranslateY;
     
-    //private static Node meNode;
-    private static StackPane MeNode;
+    private static Node meNode;
     public final static double NODE_RADIUS = 15;
  
 	static Line line;
@@ -44,7 +43,7 @@ public class Main extends Application{
 	Button button;
 	static ArrayList<Node> nodes;
 	
-	static StackPane selectedNode;
+	static Node selectedNode;
 
 	public static void main(String[] args) {
 		launch(args);
@@ -72,7 +71,6 @@ public class Main extends Application{
 		stage.setScene(scene);
 		stage.show();
 		
-		// TODO: Make the MeNode change location as well
 		stage.widthProperty().addListener((obs, oldVal, newVal) -> {
 			
 			double centreX = muteArea.getWidth() / 2;
@@ -84,19 +82,21 @@ public class Main extends Application{
 			
 			soundArea.setRadius(getCircleRadius());
 			
-			MeNode.relocate(centreX - NODE_RADIUS, centreY - NODE_RADIUS);
+			meNode.relocate(centreX - NODE_RADIUS, centreY - NODE_RADIUS);
 		});
 
 		stage.heightProperty().addListener((obs, oldVal, newVal) -> {
 
 			double centreX = muteArea.getWidth() / 2;
-			double centerY = muteArea.getHeight() / 2;
+			double centreY = muteArea.getHeight() / 2;
 			
 			muteArea.setHeight((double)oldVal);
 			soundArea.setCenterX(centreX);
-			soundArea.setCenterY(centerY);
+			soundArea.setCenterY(centreY);
 			
 			soundArea.setRadius(getCircleRadius());
+			
+			meNode.relocate(centreX - NODE_RADIUS, centreY - NODE_RADIUS);
 
 		});
 	}
@@ -126,11 +126,11 @@ public class Main extends Application{
 	
 	public static Pane buildCircles(){
 		
-		Node meNode = new Node("Me", Color.RED, 0.0, soundArea.getCenterX(), soundArea.getCenterY(), "");
-		MeNode = addMeNode(meNode);
+		meNode = new Node("Me", Color.RED, 0.0, soundArea.getCenterX(), soundArea.getCenterY(), "");
+		meNode = addMeNode(meNode);
 		
 		circles = new Pane();
-		circles.getChildren().addAll(muteArea, soundArea, line, MeNode);
+		circles.getChildren().addAll(muteArea, soundArea, line, meNode);
 		
 		return circles;
 	}
@@ -181,7 +181,7 @@ public class Main extends Application{
 	public static void addNode(Node node){
 		nodes.add(node);
 		
-		StackPane stack = new StackPane();
+		//StackPane stack = new StackPane();
 		Random rand = new Random();
 		
 		// Set x coordinate of node to a random spot
@@ -197,29 +197,24 @@ public class Main extends Application{
 		Label label = new Label(node.name);
 		label.setStyle("-fx-font:14 arial;");
 		
-		stack.getChildren().addAll(crc, label);
+		node.getChildren().addAll(crc, label);
 		crc.setCursor(Cursor.MOVE);
-		stack.setOnMousePressed(circleOnMousePressedEventHandler);
-        stack.setOnMouseDragged(circleOnMouseDraggedEventHandler);
+		node.setOnMousePressed(circleOnMousePressedEventHandler);
+		node.setOnMouseDragged(circleOnMouseDraggedEventHandler);
 
-        stack.relocate(node.x, node.y);
-		circles.getChildren().add(stack);
-		stack.toFront();
+		node.relocate(node.x, node.y);
+		circles.getChildren().add(node);
+		node.toFront();
 		
 		System.out.println(node.name + " added with colour: " + node.colour);
 	}
 	
-	public static StackPane addMeNode(Node me){
+	public static Node addMeNode(Node me){
 		
 		Circle crc = new Circle(NODE_RADIUS, me.colour);
 		
 		Label lblme = new Label(me.name);
 		lblme.setStyle("-fx-font:14 arial;");
-		
-		StackPane stackMe = new StackPane();
-		//stackMe.relocate(me.x - NODE_RADIUS, me.y - NODE_RADIUS);
-		
-		//stackMe.getChildren().addAll(crc, lblme);
 		
 		me.relocate(me.x - NODE_RADIUS, me.y - NODE_RADIUS);
 		
@@ -248,7 +243,7 @@ public class Main extends Application{
 		@Override
 	    public void handle(MouseEvent t) {
 			
-			setSelectedNode((StackPane)t.getSource());
+			setSelectedNode((Node)t.getSource());
 			
 			translateSelectedNode(t);
 			updateLine(t);
@@ -264,8 +259,8 @@ public class Main extends Application{
 		double newTranslateY = orgTranslateY + offsetY;
 
 		// TODO: Add bounds
-		((StackPane)(t.getSource())).setTranslateX(newTranslateX);
-		((StackPane)(t.getSource())).setTranslateY(newTranslateY);
+		((Node)(t.getSource())).setTranslateX(newTranslateX);
+		((Node)(t.getSource())).setTranslateY(newTranslateY);
 	}
 	
 	public static void updateLine(MouseEvent t){
@@ -286,12 +281,14 @@ public class Main extends Application{
                           
 		if(length > soundArea.getRadius()){
 			// Set volume of node to 0
+			((Node)(t.getSource())).setVolume(0.0);
 			System.out.println("Muted");
 		}else{
 			// Normalise and set volume of node
-			// TODO: Set the node's volume
-			int volume = (int)normaliseVolume(soundArea.getRadius(), length);
-			System.out.println(volume + "%");
+			double volume = normaliseVolume(soundArea.getRadius(), length);
+			((Node)(t.getSource())).setVolume(volume);
+			System.out.println(((Node)t.getSource()).getVolume());
+
 		}
 		
 	}
@@ -302,11 +299,11 @@ public class Main extends Application{
 		return 100 - ((currentVol / maxVol) * 100);
 	}
 	
-	public static StackPane getSelectedNode() {
+	public static Node getSelectedNode() {
 		return selectedNode;
 	}
 
-	public static void setSelectedNode(StackPane selectedNode) {
+	public static void setSelectedNode(Node selectedNode) {
 		Main.selectedNode = selectedNode;
 	}
 }

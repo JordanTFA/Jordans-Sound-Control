@@ -41,6 +41,10 @@ public class AudioTracks {
 		goButton.setOnAction(e ->{
 			// TODO: Temporary
 			try{
+				Node selectedNode = getSelectedNode();
+				selectedNode.setTrack(getTrack());
+				
+				// TODO: Make all nodes play
 				Node.playTrack(getTrack());
 			}catch(MediaException ex){
 				output.setText("Select a track");
@@ -100,16 +104,11 @@ public class AudioTracks {
 			Label label = new Label(node.name);
 			label.setStyle("-fx-font:14 arial;");
 			
-			// TODO: Set an ID
-			StackPane stack = new StackPane();
-			stack.getChildren().addAll(circle, label);
-			circleLayout.getChildren().add(stack);
+			node.getChildren().addAll(circle, label);
+			circleLayout.getChildren().add(node);
 			
-			stack.setOnMouseClicked(circleOnMousePressedEventHandler);
+			node.setOnMouseClicked(circleOnMousePressedEventHandler);
 		}
-		
-		// TODO: Temporary
-		setSelectedNode(nodes.get(0));
 		return circleLayout;	
 	}
 	
@@ -119,13 +118,7 @@ public class AudioTracks {
 		@Override
 		public void handle(MouseEvent t) {
 			
-			// TODO: When node's properties are accessible through stackpane
-			// setSelectedNode() = node.name
-			
-			//setSelectedNode((Node) t.getSource());
-			Alert alert = new Alert(Alert.AlertType.ERROR);
-			alert.setHeaderText("Don't press that");
-			alert.showAndWait();
+			setSelectedNode((Node) t.getSource());
 	  	}
 	};
 	
