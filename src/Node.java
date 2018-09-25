@@ -1,7 +1,8 @@
+import javafx.scene.layout.StackPane;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 
-public class Node {
+public class Node extends StackPane{
 	
 	public String name;
 	public javafx.scene.paint.Color colour;

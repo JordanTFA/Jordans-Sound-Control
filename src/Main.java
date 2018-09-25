@@ -217,11 +217,15 @@ public class Main extends Application{
 		lblme.setStyle("-fx-font:14 arial;");
 		
 		StackPane stackMe = new StackPane();
-		stackMe.relocate(me.x - NODE_RADIUS, me.y - NODE_RADIUS);
+		//stackMe.relocate(me.x - NODE_RADIUS, me.y - NODE_RADIUS);
 		
-		stackMe.getChildren().addAll(crc, lblme);
+		//stackMe.getChildren().addAll(crc, lblme);
 		
-		return stackMe;
+		me.relocate(me.x - NODE_RADIUS, me.y - NODE_RADIUS);
+		
+		me.getChildren().addAll(crc, lblme);
+		
+		return me;
 		
 	}
 	
