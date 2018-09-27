@@ -6,15 +6,15 @@ import javafx.beans.value.ObservableValue;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
+import javafx.scene.media.Media;
 import javafx.scene.media.MediaException;
+import javafx.scene.media.MediaPlayer;
 import javafx.scene.shape.Circle;
 import javafx.stage.Stage;
 
@@ -23,6 +23,8 @@ public class AudioTracks {
 	private static Label output;
 	private static String track = "";
 	private static Node selectedNode;
+	
+	static MediaPlayer player;
 
 	// Draw main window
 	public static void draw(ArrayList<Node> nodes){
@@ -39,21 +41,25 @@ public class AudioTracks {
 		
 		Button goButton = new Button("Go");
 		goButton.setOnAction(e ->{
-			// TODO: Temporary
 			try{
-				Node selectedNode = getSelectedNode();
-				selectedNode.setTrack(getTrack());
-				
-				// TODO: Make all nodes play
-				Node.playTrack(getTrack());
+				playTracks(nodes);
 			}catch(MediaException ex){
 				output.setText("Select a track");
 			}
 
 		});
 		
+		Button setButton = new Button("Set");
+		setButton.setOnAction(e -> {
+			
+			Node selectedNode = getSelectedNode();
+			selectedNode.setTrack(getTrack());
+			
+			System.out.println(selectedNode.name + " = " + selectedNode.track);
+		});
+		
 		output = new Label();
-		layout.getChildren().addAll(drawCircles(nodes), combo, output, goButton);
+		layout.getChildren().addAll(drawCircles(nodes), combo, output, goButton, setButton);
 		
 		output.setText("Select a track");
 
@@ -87,7 +93,11 @@ public class AudioTracks {
 	public static void playTracks(ArrayList<Node> nodes){
 		
 		for(Node node : nodes){
-			Node.playTrack(node.track);
+			
+			String path = "tracks/" + node.track;
+			Media media = new Media(Node.class.getResource(path).toExternalForm());
+			player = new MediaPlayer(media);
+			player.play();
 		}
 	}
 	

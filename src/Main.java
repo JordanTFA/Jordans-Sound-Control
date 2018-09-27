@@ -285,12 +285,11 @@ public class Main extends Application{
 			System.out.println("Muted");
 		}else{
 			// Normalise and set volume of node
-			double volume = normaliseVolume(soundArea.getRadius(), length);
+			double volume = (int)normaliseVolume(soundArea.getRadius(), length);
 			((Node)(t.getSource())).setVolume(volume);
-			System.out.println(((Node)t.getSource()).getVolume());
+			System.out.println(((Node)t.getSource()).getVolume() + "%");
 
 		}
-		
 	}
 	
 	public static double normaliseVolume(double maxVol, double currentVol){

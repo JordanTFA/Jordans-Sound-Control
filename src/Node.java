@@ -10,7 +10,7 @@ public class Node extends StackPane{
 	public Double x, y;
 	public String track;
 	
-	static MediaPlayer player;
+
 	
 	public Node(String name, javafx.scene.paint.Color colour, Double volume, Double x, Double y, String track) {
 		this.name = name;
@@ -19,17 +19,6 @@ public class Node extends StackPane{
 		this.x = x;
 		this.y = y;
 		this.track = track;
-	}
-	
-	public static void playTrack(String track){
-		
-		String path = "tracks/" + track;
-		
-		System.out.println("Playing: " + path);
-		
-		Media media = new Media(Node.class.getResource(path).toExternalForm());
-		player = new MediaPlayer(media);
-		player.play();
 	}
 	
 	public Double getVolume() {
