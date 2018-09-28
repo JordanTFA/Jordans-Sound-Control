@@ -27,7 +27,9 @@ public class AudioTracks {
 	static MediaPlayer player;
 
 	// Draw main window
-	public static void draw(ArrayList<Node> nodes){
+	public static void draw(ArrayList<Node> oldNodes){
+		
+		ArrayList<Node> newNodes = cloneNodes(oldNodes);
 		
 		Stage stage = new Stage();
 		stage.setTitle("Select a track");
@@ -36,13 +38,15 @@ public class AudioTracks {
 		// TODO: Fix this
 		layout.setPadding(new Insets(10, 50, 50, 50));
 		
+		final HBox buttons = new HBox(5);
+		
 		ArrayList<String> tracks = getTracks();
 		ComboBox<String> combo = fillOutTracks(tracks);
 		
 		Button goButton = new Button("Go");
 		goButton.setOnAction(e ->{
 			try{
-				playTracks(nodes);
+				playTracks(newNodes);
 			}catch(MediaException ex){
 				output.setText("Select a track");
 			}
@@ -58,14 +62,26 @@ public class AudioTracks {
 			System.out.println(selectedNode.name + " = " + selectedNode.track);
 		});
 		
+		buttons.getChildren().addAll(goButton, setButton);
+		
 		output = new Label();
-		layout.getChildren().addAll(drawCircles(nodes), combo, output, goButton, setButton);
+		layout.getChildren().addAll(drawCircles(newNodes), combo, output, buttons);
 		
 		output.setText("Select a track");
 
 		Scene scene = new Scene(layout, 300, 300);
 		stage.setScene(scene);
 		stage.showAndWait();
+	}
+	
+	public static ArrayList<Node> cloneNodes(ArrayList<Node> oldNodes){
+		
+		ArrayList<Node> newNodes = new ArrayList<Node>();
+		
+		for(Node node : oldNodes){
+			newNodes.add(node);
+		}
+		return newNodes;
 	}
 	
 	// Make the ComboBox for the tracks and populate it
@@ -105,7 +121,7 @@ public class AudioTracks {
 	// Need to make them selectable
 	public static HBox drawCircles(ArrayList<Node> nodes){
 		
-		HBox circleLayout = new HBox(2);
+		final HBox circleLayout = new HBox(2);
 		
 		double radius = 15;
 		
