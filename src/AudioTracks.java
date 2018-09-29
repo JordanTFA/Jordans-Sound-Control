@@ -113,6 +113,9 @@ public class AudioTracks {
 			String path = "tracks/" + node.track;
 			Media media = new Media(Node.class.getResource(path).toExternalForm());
 			player = new MediaPlayer(media);
+			player.setVolume(node.volume);
+			
+			System.out.println("Playing " + node.track + " at " + node.volume + "% volume");
 			player.play();
 		}
 	}
