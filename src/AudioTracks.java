@@ -29,46 +29,39 @@ public class AudioTracks {
 	// Draw main window
 	public static void draw(ArrayList<Node> oldNodes){
 		
-		ArrayList<Node> newNodes = cloneNodes(oldNodes);
+		ArrayList<Node> trackWindowNodes = cloneNodes(oldNodes);
 		
 		Stage stage = new Stage();
 		stage.setTitle("Select a track");
 		
-		VBox layout = new VBox(5);
-		// TODO: Fix this
-		layout.setPadding(new Insets(10, 50, 50, 50));
+		final VBox layout = new VBox(5);		
+		final HBox buttons = new HBox(5);		
+		final ArrayList<String> tracks = getTracks();
+		final ComboBox<String> combo = fillOutTracks(tracks);	
+		final Button goButton = new Button("Go");	
+		final Button setButton = new Button("Set");
 		
-		final HBox buttons = new HBox(5);
-		
-		ArrayList<String> tracks = getTracks();
-		ComboBox<String> combo = fillOutTracks(tracks);
-		
-		Button goButton = new Button("Go");
 		goButton.setOnAction(e ->{
 			try{
-				playTracks(newNodes);
+				playTracks(trackWindowNodes);
 			}catch(MediaException ex){
 				output.setText("Select a track");
 			}
-
 		});
 		
-		Button setButton = new Button("Set");
 		setButton.setOnAction(e -> {
 			
 			Node selectedNode = getSelectedNode();
 			selectedNode.setTrack(getTrack());
-			
 			System.out.println(selectedNode.name + " = " + selectedNode.track);
 		});
 		
-		buttons.getChildren().addAll(goButton, setButton);
-		
-		output = new Label();
-		layout.getChildren().addAll(drawCircles(newNodes), combo, output, buttons);
-		
-		output.setText("Select a track");
+		output = new Label("Select a track");	
+		layout.setPadding(new Insets(10, 50, 50, 50));
 
+		buttons.getChildren().addAll(goButton, setButton);
+		layout.getChildren().addAll(drawCircles(trackWindowNodes), combo, output, buttons);
+		
 		Scene scene = new Scene(layout, 300, 300);
 		stage.setScene(scene);
 		stage.showAndWait();
@@ -79,7 +72,8 @@ public class AudioTracks {
 		ArrayList<Node> newNodes = new ArrayList<Node>();
 		
 		for(Node node : oldNodes){
-			newNodes.add(node);
+			Node n = new Node(node.name, node.colour, node.volume, node.x, node.y, node.track);
+			newNodes.add(n);
 		}
 		return newNodes;
 	}

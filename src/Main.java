@@ -180,8 +180,7 @@ public class Main extends Application{
 	
 	public static void addNode(Node node){
 		nodes.add(node);
-		
-		//StackPane stack = new StackPane();
+
 		Random rand = new Random();
 		
 		// Set x coordinate of node to a random spot
@@ -217,7 +216,6 @@ public class Main extends Application{
 		lblme.setStyle("-fx-font:14 arial;");
 		
 		me.relocate(me.x - NODE_RADIUS, me.y - NODE_RADIUS);
-		
 		me.getChildren().addAll(crc, lblme);
 		
 		return me;

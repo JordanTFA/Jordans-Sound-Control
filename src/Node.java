@@ -1,6 +1,4 @@
 import javafx.scene.layout.StackPane;
-import javafx.scene.media.Media;
-import javafx.scene.media.MediaPlayer;
 
 public class Node extends StackPane{
 	
@@ -9,8 +7,6 @@ public class Node extends StackPane{
 	public Double volume;
 	public Double x, y;
 	public String track;
-	
-
 	
 	public Node(String name, javafx.scene.paint.Color colour, Double volume, Double x, Double y, String track) {
 		this.name = name;
