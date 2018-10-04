@@ -3,6 +3,7 @@ import java.util.Random;
 
 import javafx.application.Application;
 import javafx.event.EventHandler;
+import javafx.geometry.Bounds;
 import javafx.scene.Cursor;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
@@ -259,7 +260,25 @@ public class Main extends Application{
 		int maxWidth = (int)muteArea.getWidth();
 		int maxHeight = (int)muteArea.getWidth();
 
-		if(newTranslateX < 0){
+		Bounds bounds = muteArea.getBoundsInLocal();
+		
+		Node n = (Node)t.getSource();
+		if(n.getLayoutX() <= (bounds.getMinX() + NODE_RADIUS)){
+			newTranslateY = bounds.getMinX() + NODE_RADIUS;
+		}
+		else if(n.getLayoutY() <= (bounds.getMinY() + NODE_RADIUS)){
+			newTranslateY = bounds.getMinY() + NODE_RADIUS;
+		}
+		else if(n.getLayoutX() >= (bounds.getMaxX() - NODE_RADIUS)){
+			newTranslateY = bounds.getMaxX() + NODE_RADIUS;
+		}
+		else if(n.getLayoutX() >= (bounds.getMaxY() - NODE_RADIUS)){
+			newTranslateY = bounds.getMaxY() + NODE_RADIUS;
+		}
+		
+		//n.getLayoutX() >= (bounds.getMaxX() - NODE_RADIUS))
+		//n.getLayoutY() >= (bounds.getMaxY() - NODE_RADIUS))
+		/*if(newTranslateX < 0){
 			newTranslateX = 0;
 		}else if(newTranslateX > maxWidth){
 			newTranslateX = maxWidth;
@@ -269,7 +288,7 @@ public class Main extends Application{
 			newTranslateY = 0;
 		}else if(newTranslateY > maxHeight){
 			newTranslateY = maxHeight;
-		}
+		}*/
 			
 		// TODO: Add bounds
 		((Node)(t.getSource())).setTranslateX(newTranslateX);
