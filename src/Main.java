@@ -256,41 +256,24 @@ public class Main extends Application{
 		double offsetY = t.getSceneY() - orgSceneY;
 		double newTranslateX = orgTranslateX + offsetX;
 		double newTranslateY = orgTranslateY + offsetY;
-		
-		int maxWidth = (int)muteArea.getWidth();
-		int maxHeight = (int)muteArea.getWidth();
 
 		Bounds bounds = muteArea.getBoundsInLocal();
 		
 		Node n = (Node)t.getSource();
+		
 		if(n.getLayoutX() <= (bounds.getMinX() + NODE_RADIUS)){
-			newTranslateY = bounds.getMinX() + NODE_RADIUS;
-		}
-		else if(n.getLayoutY() <= (bounds.getMinY() + NODE_RADIUS)){
-			newTranslateY = bounds.getMinY() + NODE_RADIUS;
+			newTranslateX = bounds.getMinX() + NODE_RADIUS;
 		}
 		else if(n.getLayoutX() >= (bounds.getMaxX() - NODE_RADIUS)){
 			newTranslateY = bounds.getMaxX() + NODE_RADIUS;
 		}
+		else if(n.getLayoutY() <= (bounds.getMinY() + NODE_RADIUS)){
+			newTranslateY = bounds.getMinY() + NODE_RADIUS;
+		}
 		else if(n.getLayoutX() >= (bounds.getMaxY() - NODE_RADIUS)){
-			newTranslateY = bounds.getMaxY() + NODE_RADIUS;
+			newTranslateX = bounds.getMaxY() + NODE_RADIUS;
 		}
-		
-		//n.getLayoutX() >= (bounds.getMaxX() - NODE_RADIUS))
-		//n.getLayoutY() >= (bounds.getMaxY() - NODE_RADIUS))
-		/*if(newTranslateX < 0){
-			newTranslateX = 0;
-		}else if(newTranslateX > maxWidth){
-			newTranslateX = maxWidth;
-		}
-		
-		if(newTranslateY < 0){
-			newTranslateY = 0;
-		}else if(newTranslateY > maxHeight){
-			newTranslateY = maxHeight;
-		}*/
 			
-		// TODO: Add bounds
 		((Node)(t.getSource())).setTranslateX(newTranslateX);
 		((Node)(t.getSource())).setTranslateY(newTranslateY);
 	}
