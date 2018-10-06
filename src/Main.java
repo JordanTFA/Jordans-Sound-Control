@@ -259,19 +259,19 @@ public class Main extends Application{
 
 		Bounds bounds = muteArea.getBoundsInLocal();
 		
-		Node n = (Node)t.getSource();
+		System.out.println(t.getSceneX());
 		
-		if(n.getLayoutX() <= (bounds.getMinX() + NODE_RADIUS)){
+		if(t.getSceneX() <= (bounds.getMinX() + NODE_RADIUS)){
 			newTranslateX = bounds.getMinX() + NODE_RADIUS;
 		}
-		else if(n.getLayoutX() >= (bounds.getMaxX() - NODE_RADIUS)){
+		else if(t.getSceneX() >= (bounds.getMaxX() - NODE_RADIUS)){
 			newTranslateY = bounds.getMaxX() + NODE_RADIUS;
 		}
-		else if(n.getLayoutY() <= (bounds.getMinY() + NODE_RADIUS)){
+		else if(t.getSceneY() <= (bounds.getMinY() + NODE_RADIUS)){
 			newTranslateY = bounds.getMinY() + NODE_RADIUS;
 		}
-		else if(n.getLayoutX() >= (bounds.getMaxY() - NODE_RADIUS)){
-			newTranslateX = bounds.getMaxY() + NODE_RADIUS;
+		else if(t.getSceneY() >= (bounds.getMaxY() - NODE_RADIUS)){
+			newTranslateY = bounds.getMaxY() + NODE_RADIUS;
 		}
 			
 		((Node)(t.getSource())).setTranslateX(newTranslateX);
@@ -302,7 +302,7 @@ public class Main extends Application{
 			// Normalise and set volume of node
 			double volume = (int)normaliseVolume(soundArea.getRadius(), length);
 			((Node)(t.getSource())).setVolume(volume);
-			System.out.println(((Node)t.getSource()).getVolume() + "%");
+			//System.out.println(((Node)t.getSource()).getVolume() + "%");
 
 		}
 	}
