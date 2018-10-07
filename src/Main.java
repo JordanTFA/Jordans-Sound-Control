@@ -46,6 +46,9 @@ public class Main extends Application{
 	
 	static Node selectedNode;
 
+	static double lastSuccessfulX;
+	static double lastSuccessfulY;
+	
 	public static void main(String[] args) {
 		launch(args);
 	}
@@ -55,6 +58,8 @@ public class Main extends Application{
 
 		nodes = new ArrayList<Node>();
 		line = new Line();
+		setLastSuccessfulX(50.0);
+		setLastSuccessfulY(0.0);
 		
 		build(stage);
 	}
@@ -259,27 +264,33 @@ public class Main extends Application{
 
 		Bounds bounds = muteArea.getBoundsInLocal();
 		
-		System.out.println(t.getSceneX());
-		
 		if(t.getSceneX() <= (bounds.getMinX() + NODE_RADIUS)){
-			newTranslateX = bounds.getMinX() + NODE_RADIUS;
+			//System.out.println("Out of bounds");//newTranslateX = bounds.getMinX() + NODE_RADIUS;
+			//newTranslateX = orgTranslateX;
+			newTranslateX = 0;
 		}
 		else if(t.getSceneX() >= (bounds.getMaxX() - NODE_RADIUS)){
-			newTranslateY = bounds.getMaxX() + NODE_RADIUS;
+			//System.out.println("Out of bounds");//newTranslateY = bounds.getMaxX() + NODE_RADIUS;
+			newTranslateX = 0;
 		}
 		else if(t.getSceneY() <= (bounds.getMinY() + NODE_RADIUS)){
-			newTranslateY = bounds.getMinY() + NODE_RADIUS;
+			System.out.println("Out of bounds");//newTranslateY = bounds.getMinY() + NODE_RADIUS;
+			newTranslateY = 0;
 		}
 		else if(t.getSceneY() >= (bounds.getMaxY() - NODE_RADIUS)){
-			newTranslateY = bounds.getMaxY() + NODE_RADIUS;
+			System.out.println("Out of bounds");//newTranslateY = bounds.getMaxY() + NODE_RADIUS;
+			newTranslateY = 0;
 		}
 			
 		((Node)(t.getSource())).setTranslateX(newTranslateX);
 		((Node)(t.getSource())).setTranslateY(newTranslateY);
+		
+		setLastSuccessfulX(t.getSceneX());
+		setLastSuccessfulY(t.getSceneX());
 	}
 	
 	public static void updateLine(MouseEvent t){
-		
+
 		line.setStartX(muteArea.getWidth() / 2); // Mid point
 		line.setStartY(muteArea.getHeight() / 2);
             
@@ -302,7 +313,7 @@ public class Main extends Application{
 			// Normalise and set volume of node
 			double volume = (int)normaliseVolume(soundArea.getRadius(), length);
 			((Node)(t.getSource())).setVolume(volume);
-			//System.out.println(((Node)t.getSource()).getVolume() + "%");
+			System.out.println(((Node)t.getSource()).getVolume() + "%");
 
 		}
 	}
@@ -319,5 +330,21 @@ public class Main extends Application{
 
 	public static void setSelectedNode(Node selectedNode) {
 		Main.selectedNode = selectedNode;
+	}
+	
+	public static double getLastSuccessfulX() {
+		return lastSuccessfulX;
+	}
+
+	public static void setLastSuccessfulX(double lastSuccessfulX) {
+		Main.lastSuccessfulX = lastSuccessfulX;
+	}
+
+	public static double getLastSuccessfulY() {
+		return lastSuccessfulY;
+	}
+
+	public static void setLastSuccessfulY(double lastSuccessfulY) {
+		Main.lastSuccessfulY = lastSuccessfulY;
 	}
 }

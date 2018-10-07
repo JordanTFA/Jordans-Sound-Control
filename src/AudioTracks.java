@@ -46,14 +46,23 @@ public class AudioTracks {
 				playTracks(trackWindowNodes);
 			}catch(MediaException ex){
 				output.setText("Select a track");
+			}catch(NullPointerException ex){
+				output.setText("Select a track");
 			}
 		});
 		
 		setButton.setOnAction(e -> {
 			
-			Node selectedNode = getSelectedNode();
-			selectedNode.setTrack(getTrack());
-			System.out.println(selectedNode.name + " = " + selectedNode.track);
+			try{
+				Node selectedNode = getSelectedNode();
+				selectedNode.setTrack(getTrack());
+				System.out.println(selectedNode.name + " = " + selectedNode.track);
+			}catch(MediaException ex){
+				output.setText("Select a track");
+			}catch(NullPointerException ex){
+				output.setText("Select a node");
+			}
+
 		});
 		
 		output = new Label("Select a track");	
@@ -107,7 +116,7 @@ public class AudioTracks {
 			String path = "tracks/" + node.track;
 			Media media = new Media(Node.class.getResource(path).toExternalForm());
 			player = new MediaPlayer(media);
-			player.setVolume(node.volume);
+			player.setVolume(node.volume / 100);
 			
 			System.out.println("Playing " + node.track + " at " + node.volume + "% volume");
 			player.play();
@@ -115,7 +124,6 @@ public class AudioTracks {
 	}
 	
 	// Draw each of the nodes
-	// Need to make them selectable
 	public static HBox drawCircles(ArrayList<Node> nodes){
 		
 		final HBox circleLayout = new HBox(2);
@@ -141,7 +149,11 @@ public class AudioTracks {
 		@Override
 		public void handle(MouseEvent t) {
 			
-			setSelectedNode((Node) t.getSource());
+			Node node = (Node)t.getSource();
+			
+			setSelectedNode(node);
+			node.setScaleX(2);
+			node.setScaleY(2);
 	  	}
 	};
 	
@@ -162,7 +174,12 @@ public class AudioTracks {
 	
 	public static void updatePreviewLabel(){
 		
-		output.setText(getSelectedNode().name + " - " + getTrack());
+		try{
+			output.setText(getSelectedNode().name + " - " + getTrack());
+		}catch(NullPointerException e){
+			output.setText(getTrack());
+		}
+		
 	}
 	
 	public static String getTrack() {
