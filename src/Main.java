@@ -39,15 +39,12 @@ public class Main extends Application{
     private static Node meNode;
     public final static double NODE_RADIUS = 15;
  
-	static Line line;
+	//static Line line;
 	
 	Button button;
 	static ArrayList<Node> nodes;
 	
 	static Node selectedNode;
-
-	static double lastSuccessfulX;
-	static double lastSuccessfulY;
 	
 	public static void main(String[] args) {
 		launch(args);
@@ -57,9 +54,7 @@ public class Main extends Application{
 	public void start(Stage stage) throws Exception {
 
 		nodes = new ArrayList<Node>();
-		line = new Line();
-		setLastSuccessfulX(50.0);
-		setLastSuccessfulY(0.0);
+		//line = new Line();
 		
 		build(stage);
 	}
@@ -136,22 +131,24 @@ public class Main extends Application{
 		meNode = addMeNode(meNode);
 		
 		circles = new Pane();
-		circles.getChildren().addAll(muteArea, soundArea, line, meNode);
+		circles.getChildren().addAll(muteArea, soundArea, meNode);
 		
 		return circles;
 	}
 
 	public static VBox buildControls(){
 		
-		Button add = new Button("Add Node");
-		add.setOnAction(e -> NodeWindow.display());
+		final Button add = new Button("Add Node");
+		final Button delete = new Button("Delete Node");
+		final Button selectTrack = new Button("Assign Tracks");
 		
-		Button delete = new Button("Delete Node");
+		add.setOnAction(e -> NodeWindow.display());
+
 		delete.setOnAction(e -> {
 			
 			if(getSelectedNode() != null){
 				// Node is selected -> Remove node
-				circles.getChildren().removeAll(getSelectedNode(), line);
+				circles.getChildren().removeAll(getSelectedNode(), getSelectedNode().line);
 					
 			} else{	
 				// No node is selected -> Show user error
@@ -159,7 +156,6 @@ public class Main extends Application{
 			}
 		});	
 		
-		Button selectTrack = new Button("Assign Tracks");
 		selectTrack.setOnAction(e -> {
 
 			try{
@@ -210,6 +206,8 @@ public class Main extends Application{
 		node.relocate(node.x, node.y);
 		circles.getChildren().add(node);
 		node.toFront();
+		
+		node.hasLine(new Line());
 		
 		System.out.println(node.name + " added with colour: " + node.colour);
 	}
@@ -263,47 +261,52 @@ public class Main extends Application{
 		double newTranslateY = orgTranslateY + offsetY;
 
 		Bounds bounds = muteArea.getBoundsInLocal();
+		Node n = ((Node)t.getSource());
 		
 		if(t.getSceneX() <= (bounds.getMinX() + NODE_RADIUS)){
-			//System.out.println("Out of bounds");//newTranslateX = bounds.getMinX() + NODE_RADIUS;
-			//newTranslateX = orgTranslateX;
-			newTranslateX = 0;
+			n.setLayoutX(bounds.getMinX() + NODE_RADIUS);
 		}
 		else if(t.getSceneX() >= (bounds.getMaxX() - NODE_RADIUS)){
-			//System.out.println("Out of bounds");//newTranslateY = bounds.getMaxX() + NODE_RADIUS;
-			newTranslateX = 0;
+			n.setLayoutX(bounds.getMaxX() - NODE_RADIUS);
+		}else{
+			n.setTranslateX(newTranslateX);
 		}
-		else if(t.getSceneY() <= (bounds.getMinY() + NODE_RADIUS)){
-			System.out.println("Out of bounds");//newTranslateY = bounds.getMinY() + NODE_RADIUS;
-			newTranslateY = 0;
+
+		if(t.getSceneY() <= (bounds.getMinY() + NODE_RADIUS)){
+			n.setLayoutY(bounds.getMinY() + NODE_RADIUS);
 		}
 		else if(t.getSceneY() >= (bounds.getMaxY() - NODE_RADIUS)){
-			System.out.println("Out of bounds");//newTranslateY = bounds.getMaxY() + NODE_RADIUS;
-			newTranslateY = 0;
+			n.setLayoutY(bounds.getMaxY() - NODE_RADIUS);
+		}else{
+			n.setTranslateY(newTranslateY);
 		}
-			
-		((Node)(t.getSource())).setTranslateX(newTranslateX);
-		((Node)(t.getSource())).setTranslateY(newTranslateY);
-		
-		setLastSuccessfulX(t.getSceneX());
-		setLastSuccessfulY(t.getSceneX());
 	}
 	
 	public static void updateLine(MouseEvent t){
 
-		line.setStartX(muteArea.getWidth() / 2); // Mid point
-		line.setStartY(muteArea.getHeight() / 2);
+		Node node = (Node)t.getSource();
+		
+		circles.getChildren().remove(node.line);
+
+		node.line.setStartX(muteArea.getWidth() / 2); // Mid point
+		node.line.setStartY(muteArea.getHeight() / 2);
             
-		line.setEndX(t.getSceneX());
-		line.setEndY(t.getSceneY());
+		node.line.setEndX(t.getSceneX());
+		node.line.setEndY(t.getSceneY());
+		
+		circles.getChildren().add(node.line);
+		
+		meNode.toFront();
+		node.toFront();
 		
 	}
 	
 	public static void adjustVolume(MouseEvent t){
 		
+		Node node = (Node)t.getSource();
 		// Length of line
-		double length = Math.sqrt(Math.pow( line.getStartX() - line.getEndX() , 2) + 
-				( Math.pow(line.getStartY() - line.getEndY(), 2)));
+		double length = Math.sqrt(Math.pow( node.line.getStartX() - node.line.getEndX() , 2) + 
+				( Math.pow(node.line.getStartY() - node.line.getEndY(), 2)));
                           
 		if(length > soundArea.getRadius()){
 			// Set volume of node to 0
@@ -331,20 +334,5 @@ public class Main extends Application{
 	public static void setSelectedNode(Node selectedNode) {
 		Main.selectedNode = selectedNode;
 	}
-	
-	public static double getLastSuccessfulX() {
-		return lastSuccessfulX;
-	}
 
-	public static void setLastSuccessfulX(double lastSuccessfulX) {
-		Main.lastSuccessfulX = lastSuccessfulX;
-	}
-
-	public static double getLastSuccessfulY() {
-		return lastSuccessfulY;
-	}
-
-	public static void setLastSuccessfulY(double lastSuccessfulY) {
-		Main.lastSuccessfulY = lastSuccessfulY;
-	}
 }
