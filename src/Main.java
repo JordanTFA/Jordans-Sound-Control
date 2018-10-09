@@ -310,13 +310,22 @@ public class Main extends Application{
                           
 		if(length > soundArea.getRadius()){
 			// Set volume of node to 0
-			((Node)(t.getSource())).setVolume(0.0);
+			node.setVolume(0.0);
 			System.out.println("Muted");
 		}else{
 			// Normalise and set volume of node
 			double volume = (int)normaliseVolume(soundArea.getRadius(), length);
-			((Node)(t.getSource())).setVolume(volume);
-			System.out.println(((Node)t.getSource()).getVolume() + "%");
+			node.setVolume(volume);
+			
+			if(node.player != null){
+				node.player.setVolume(volume / 100);
+			}
+
+			// This raises nullPointerExecption
+			System.out.println("Node: " + node + ", player: " + node.player + ", volume: " + volume + ", track: " + node.track);
+			//node.player.setVolume(volume / 100);
+
+			System.out.println(node.getVolume() + "%");
 
 		}
 	}

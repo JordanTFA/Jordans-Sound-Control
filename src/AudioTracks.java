@@ -24,7 +24,7 @@ public class AudioTracks {
 	private static String track = "";
 	private static Node selectedNode;
 	
-	static MediaPlayer player;
+	//static MediaPlayer player;
 
 	// Draw main window
 	public static void draw(ArrayList<Node> oldNodes){
@@ -112,14 +112,16 @@ public class AudioTracks {
 	public static void playTracks(ArrayList<Node> nodes){
 		
 		for(Node node : nodes){
-			
+		
 			String path = "tracks/" + node.track;
 			Media media = new Media(Node.class.getResource(path).toExternalForm());
-			player = new MediaPlayer(media);
-			player.setVolume(node.volume / 100);
 			
+			node.hasMediaPlayer(new MediaPlayer(media));
+			node.player.setVolume(node.volume / 100);
+
+			System.out.println("Node: " + node + ", player: " + node.player + ", volume: " + node.volume);
 			System.out.println("Playing " + node.track + " at " + node.volume + "% volume");
-			player.play();
+			node.player.play();
 		}
 	}
 	
