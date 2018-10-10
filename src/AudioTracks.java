@@ -43,7 +43,7 @@ public class AudioTracks {
 		
 		goButton.setOnAction(e ->{
 			try{
-				playTracks(trackWindowNodes);
+				playTracks(trackWindowNodes, oldNodes);
 			}catch(MediaException ex){
 				output.setText("Select a track");
 			}catch(NullPointerException ex){
@@ -109,19 +109,21 @@ public class AudioTracks {
 		return combo;
 	}
 	
-	public static void playTracks(ArrayList<Node> nodes){
+	public static void playTracks(ArrayList<Node> nodes, ArrayList<Node> oldNodes){
 		
-		for(Node node : nodes){
-		
+		for(int i = 0; i < nodes.size(); i++){
+			
+			Node node = nodes.get(i);
+			Node oldNode = oldNodes.get(i);
 			String path = "tracks/" + node.track;
 			Media media = new Media(Node.class.getResource(path).toExternalForm());
 			
-			node.hasMediaPlayer(new MediaPlayer(media));
-			node.player.setVolume(node.volume / 100);
-
-			System.out.println("Node: " + node + ", player: " + node.player + ", volume: " + node.volume);
+			oldNode.hasMediaPlayer(new MediaPlayer(media));
+			oldNode.player.setVolume(node.volume / 100);
+			
+			System.out.println("Node: " + oldNode + ", player: " + oldNode.player + ", volume: " + oldNode.volume);
 			System.out.println("Playing " + node.track + " at " + node.volume + "% volume");
-			node.player.play();
+			oldNode.player.play();
 		}
 	}
 	
