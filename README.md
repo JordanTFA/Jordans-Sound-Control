@@ -4,10 +4,11 @@
 
 This application allows you manage sound volume from multiple of sources simply by moving nodes in a given area.
 
+Demo:
+https://www.youtube.com/watch?v=PVZcmLHQcpg
 
 # TODO:
 
-- Allow multiple lines
-- Change volume of sound based on proximity
 - Add bounds to nodes
-- Make Nodes movable after assigning tracks
+- Fix window dimensions
+
