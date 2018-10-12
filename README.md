@@ -11,4 +11,5 @@ https://www.youtube.com/watch?v=PVZcmLHQcpg
 
 - Add bounds to nodes
 - Fix window dimensions
+- Stop player on node deletion or add button
 
