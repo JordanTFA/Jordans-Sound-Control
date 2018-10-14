@@ -149,6 +149,8 @@ public class Main extends Application{
 			if(getSelectedNode() != null){
 				// Node is selected -> Remove node
 				circles.getChildren().removeAll(getSelectedNode(), getSelectedNode().line);
+				getSelectedNode().player.stop();
+				nodes.remove(getSelectedNode());
 					
 			} else{	
 				// No node is selected -> Show user error
@@ -323,7 +325,6 @@ public class Main extends Application{
 
 			// This raises nullPointerExecption
 			System.out.println("Node: " + node + ", player: " + node.player + ", volume: " + volume + ", track: " + node.track);
-			//node.player.setVolume(volume / 100);
 
 			System.out.println(node.getVolume() + "%");
 

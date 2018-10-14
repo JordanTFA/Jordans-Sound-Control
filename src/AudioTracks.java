@@ -156,8 +156,8 @@ public class AudioTracks {
 			Node node = (Node)t.getSource();
 			
 			setSelectedNode(node);
-			node.setScaleX(2);
-			node.setScaleY(2);
+			//node.setScaleX(2);
+			//node.setScaleY(2);
 	  	}
 	};
 	
