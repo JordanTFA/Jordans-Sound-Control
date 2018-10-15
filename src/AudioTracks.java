@@ -73,6 +73,7 @@ public class AudioTracks {
 		
 		Scene scene = new Scene(layout, 300, 300);
 		stage.setScene(scene);
+		stage.setResizable(false);
 		stage.showAndWait();
 	}
 	
@@ -125,6 +126,14 @@ public class AudioTracks {
 			System.out.println("Playing " + node.track + " at " + node.volume + "% volume");
 			oldNode.player.play();
 		}
+	}
+	
+	public static void stopPlayer(Node node){
+		
+		try{
+			node.player.stop();
+		}catch(NullPointerException e){}
+
 	}
 	
 	// Draw each of the nodes

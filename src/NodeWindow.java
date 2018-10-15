@@ -22,6 +22,7 @@ public class NodeWindow {
 		window.setTitle("Node Selection");
 		window.setMinWidth(250);
 		window.setMinHeight(355);
+		window.setResizable(false);
 		
 		final Circle preview = new Circle();
 		final Label instr = new Label("Select a colour and a name for the node");

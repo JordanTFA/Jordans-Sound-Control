@@ -68,11 +68,11 @@ public class Main extends Application{
 		HBox layout = new HBox(10);
 		layout.getChildren().addAll(circles, controls);
 
-		scene = new Scene(layout, 620, 500);
+		scene = new Scene(layout, 620, 490);
 		stage.setScene(scene);
 		stage.show();
 		
-		stage.widthProperty().addListener((obs, oldVal, newVal) -> {
+		/*stage.widthProperty().addListener((obs, oldVal, newVal) -> {
 			
 			double centreX = muteArea.getWidth() / 2;
 			double centreY = muteArea.getHeight() / 2;
@@ -99,7 +99,7 @@ public class Main extends Application{
 			
 			meNode.relocate(centreX - NODE_RADIUS, centreY - NODE_RADIUS);
 
-		});
+		});*/
 	}
 	
 	// Return the value the radius should be (half of smallest muteArea dimension)
@@ -118,6 +118,7 @@ public class Main extends Application{
 	public static void buildWindow(Stage stage){
 		
 		stage.setTitle("Jordan\'s Sound Control");
+		stage.setResizable(false);
 		
 		muteArea = new Rectangle(500, 500, Color.POWDERBLUE);
 		soundArea = new Circle(250, Color.DODGERBLUE);
@@ -149,7 +150,7 @@ public class Main extends Application{
 			if(getSelectedNode() != null){
 				// Node is selected -> Remove node
 				circles.getChildren().removeAll(getSelectedNode(), getSelectedNode().line);
-				getSelectedNode().player.stop();
+				AudioTracks.stopPlayer(getSelectedNode());
 				nodes.remove(getSelectedNode());
 					
 			} else{	
